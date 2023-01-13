@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
 import SinglePostView from "../views/SinglePostView.vue"
-import store from "@/store";
+// import store from "@/store";
 
 Vue.use(VueRouter);
 
@@ -48,7 +48,7 @@ const router = new VueRouter({
   routes,
 });
 
-router.beforeEach(() => {
-  console.info(store.state.b.login)
-});
+// router.beforeEach(() => {
+//   console.info(store.state.b.login)
+// });
 export default router;

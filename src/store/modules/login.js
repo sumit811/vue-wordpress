@@ -18,15 +18,28 @@ export default{
     },
     actions:{
         async fetchLogin({commit},payload){
-            console.log('payload',payload);
-            axios.post('/jwt-auth/v1/token',{
+            // console.log('payload',payload);
+            // try {
+            //     axios.post('/jwt-auth/v1/token',{
+            //         'username':payload.username,
+            //         'password':payload.password
+            //     }).then(response =>{
+            //         console.log('login response', response);
+            //         commit('SET_USER',response.data);
+            //     })
+            // } catch (error) {
+            //     throw error;
+            // }
+            await axios.post('/jwt-auth/v1/token',{
                 'username':payload.username,
                 'password':payload.password
             }).then(response =>{
                 console.log('login response', response);
                 commit('SET_USER',response.data);
             }).catch(error =>{
-                console.log('login error', error);
+                // console.log('login error', error);
+                throw error;
+                // return error;
             });
         },
     },

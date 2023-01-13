@@ -2,9 +2,7 @@
     <div class="container mt-5 mb-5">
         <div class="row justify-content-md-center">
             <div class="col-md-6">
-                <div class="alert alert-danger" role="alert" v-if="error">
-                    Please fill all fields.
-                </div>
+                <div class="alert alert-danger" role="alert" v-if="error" v-html="errormsg"></div>
                 <form @submit.prevent="login" class="row g-3 needs-validation" ref="loginfrm">
                     <div class="mb-3 ">
                         <label for="username" class="form-label">Username</label>
@@ -36,7 +34,8 @@ export default{
             username:'',
             password:'',
             message:'',
-            error: false
+            error: false,
+            errormsg: 'Please fill all fields.'
         }
     },
     watch:{
@@ -58,8 +57,8 @@ export default{
             required
         }
     },
-    beforeRouteEnter(){},
-    beforeRouteLeave(){},
+    // beforeRouteEnter(){},
+    // beforeRouteLeave(){},
     methods:{
         ...mapActions(['b/login/fetchLogin']),
         async login(){
@@ -71,11 +70,15 @@ export default{
             } else {
                 // console.info('success');
                 this.error = false;
-                this['b/login/fetchLogin']({'username':this.username,'password':this.password});
+                this['b/login/fetchLogin']({'username':this.username,'password':this.password}).catch(err => {
+                    // console.info(err)
+                    this.error = true;
+                    this.errormsg = err.response.data.message;
+                });
             //    this.$store.dispatch("b/login/fetchLogin",{'username':this.username,'password':this.password});
                 // console.log('ek jeep khari m');
             }
-         },
+         }
     },
 }
 </script>
