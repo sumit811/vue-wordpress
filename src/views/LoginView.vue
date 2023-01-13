@@ -1,0 +1,81 @@
+<template>
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-md-center">
+            <div class="col-md-6">
+                <div class="alert alert-danger" role="alert" v-if="error">
+                    Please fill all fields.
+                </div>
+                <form @submit.prevent="login" class="row g-3 needs-validation" ref="loginfrm">
+                    <div class="mb-3 ">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" v-model.trim="username" :class="{ 'is-invalid': !this.$v.username.required && error }">
+                        <p class="invalid-feedback" :class="{ 'd-none':!error, 'd-block': !this.$v.username.required && error }">**Please enter your username.</p>
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" v-model.trim="password" :class="{ 'is-invalid': !this.$v.password.required && error }">
+                        <p class="invalid-feedback" :class="{ 'd-none':!error, 'd-block': !this.$v.password.required && error }">**Please enter your password.</p>
+
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+import { required } from 'vuelidate/lib/validators'
+import { mapActions } from 'vuex';
+
+export default{
+    name:'LoginView',
+    data(){
+        return{
+            username:'',
+            password:'',
+            message:'',
+            error: false
+        }
+    },
+    watch:{
+        // error: function(o,n){
+        //     console.log('o-',o,'/n-',n);
+        //     if(!n){
+        //         console.log('n',n);
+        //         this.$refs.loginfrm.classList.add('was-validated');
+        //     } else {
+        //         this.$refs.loginfrm.classList.remove('was-validated');
+        //     }
+        // }
+    },
+    validations:{
+        username: {
+            required,
+        },
+        password: {
+            required
+        }
+    },
+    beforeRouteEnter(){},
+    beforeRouteLeave(){},
+    methods:{
+        ...mapActions(['b/login/fetchLogin']),
+        async login(){
+            this.$v.$touch();
+            // console.log('this.$v',this.$v);
+            if (this.$v.$invalid) {
+                this.error = true;
+                // console.error('error');
+            } else {
+                // console.info('success');
+                this.error = false;
+                this['b/login/fetchLogin']({'username':this.username,'password':this.password});
+            //    this.$store.dispatch("b/login/fetchLogin",{'username':this.username,'password':this.password});
+                // console.log('ek jeep khari m');
+            }
+         },
+    },
+}
+</script>
