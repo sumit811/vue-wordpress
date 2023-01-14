@@ -12,18 +12,20 @@
 
 
     <FooterVue />
+    <TheLoader />
   </div>
 </template>
 
 <script>
 import NavBar from "@/components/NavBar.vue";
 import FooterVue from "./components/Footer.vue";
-
+import TheLoader from "./components/TheLoader.vue";
 
 export default {
   components: {
     NavBar,
     FooterVue,
+    TheLoader
   },
   
 };
