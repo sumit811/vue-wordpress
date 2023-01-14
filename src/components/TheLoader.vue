@@ -1,5 +1,5 @@
 <template>
-    <div class="loaderbg">
+    <div class="loaderbg" v-if="showLoading">
         <div class="lds-ripple">
             <div></div>
             <div></div>
@@ -78,6 +78,7 @@
 }
 </style>
 <script>
+import { mapState } from 'vuex';
 export default {
     props:{
         loadingTxt:{
@@ -85,6 +86,9 @@ export default {
             type: String,
             default: 'Loading...'
         }
+    },
+    computed:{
+        ...mapState(['showLoading'])
     }
 }
 </script>

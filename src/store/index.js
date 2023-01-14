@@ -40,9 +40,15 @@ Vue.use(Vuex);
 //   }
 // }
 export default new Vuex.Store({
-  state: {},
+  state: {
+    showLoading: false
+  },
   getters: {},
-  mutations: {},
+  mutations: {
+    SET_SHOW_LOADING(state,payload){
+      state.showLoading = payload
+    }
+  },
   actions: {},
   modules: {
     a:modulePost,
