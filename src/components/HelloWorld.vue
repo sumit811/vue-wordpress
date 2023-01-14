@@ -34,7 +34,7 @@ export default {
     },
   },
   created() {
-    console.log('modulePost');
+    // console.log('modulePost');
     this.$store.dispatch("a/fetchPosts");
   },
   computed: {

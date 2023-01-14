@@ -15,8 +15,23 @@ export default{
             state.user_nicename = payload.user_nicename
             state.user_display_name = payload.user_display_name
         },
+        LOGOUT_USER(state){
+            state.token = '',
+            state.user_email = '',
+            state.user_nicename = '',
+            state.user_display_name = '',
+            sessionStorage.removeItem('vue-wordpress');
+        }
+    },
+    getters:{
+        getToken: state => state.token,
+        isUserLoggedin: state => !!state.token
     },
     actions:{
+        autoLogin({commit}){
+            let userData = JSON.parse(sessionStorage.getItem('vue-wordpress'));
+            commit('SET_USER',userData);
+        },
         async fetchLogin({commit},payload){
             // console.log('payload',payload);
             // try {
@@ -35,6 +50,7 @@ export default{
                 'password':payload.password
             }).then(response =>{
                 console.log('login response', response);
+                sessionStorage.setItem('vue-wordpress',JSON.stringify(response.data))
                 commit('SET_USER',response.data);
             }).catch(error =>{
                 // console.log('login error', error);

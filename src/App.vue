@@ -27,7 +27,9 @@ export default {
     FooterVue,
     TheLoader
   },
-  
+  created(){
+    this.$store.dispatch("b/login/autoLogin");
+  }
 };
 </script>
 
