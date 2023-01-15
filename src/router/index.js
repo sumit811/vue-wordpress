@@ -30,7 +30,7 @@ const routes = [
   {
     path: "*",
     component: SinglePostView,
-    meta: { transition: 'fade', auth: false },
+    meta: { transition: 'fade' },
   },
   {
     path: "/about",

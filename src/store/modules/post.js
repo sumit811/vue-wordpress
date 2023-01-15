@@ -19,9 +19,15 @@ export default {
     actions: {
         async fetchPosts(context) {
             // console.log('context:',context);
+            context.commit("SET_SHOW_LOADING", true, { root: true });
             axios.get('/wp/v2/posts').then(response => {
                 context.commit('SET_POSTS', response.data);
-            })
+            }).then(()=>{
+                context.commit("SET_SHOW_LOADING", false, { root: true });
+            }).catch(error =>{
+                context.commit("SET_SHOW_LOADING", false, { root: true });
+                console.log(error);
+            });
         },
         async fetchSinglePost({ commit }, slug) {
             console.log('fetchSinglePost id:-', slug);
