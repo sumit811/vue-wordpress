@@ -30,7 +30,9 @@ export default{
     actions:{
         autoLogin({commit}){
             let userData = JSON.parse(sessionStorage.getItem('vue-wordpress'));
-            commit('SET_USER',userData);
+            if(userData){
+                commit('SET_USER',userData);
+            }
         },
         async fetchLogin({commit},payload){
             // console.log('payload',payload);

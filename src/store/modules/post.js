@@ -10,17 +10,22 @@ export default {
     getters: {},
     mutations: {
         SET_POSTS(state, payload) {
-            state.posts = payload
+            state.posts.push(...payload)
         },
         SET_SINGLE_POST(state, payload) {
             state.singlePost = payload.data[0]
         }
     },
     actions: {
-        async fetchPosts(context) {
+
+        async fetchPosts(context,page) {
             // console.log('context:',context);
             context.commit("SET_SHOW_LOADING", true, { root: true });
-            axios.get('/wp/v2/posts').then(response => {
+            let url = '/wp/v2/posts?per_page=10';
+            if(page){
+                url = `/wp/v2/posts?per_page=10&page=${page}`;
+            }
+            axios.get(url).then(response => {
                 context.commit('SET_POSTS', response.data);
             }).then(()=>{
                 context.commit("SET_SHOW_LOADING", false, { root: true });

@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-md-8">
-        <HelloWorld msg="Welcome to Your Vue.js App" />
+      <div class="col-md-8 post-box-js">
+        <PostList msg="Welcome to Your Vue.js App" />
       </div>
       <div class="col-md-4">
         <SideBar />
@@ -14,12 +14,12 @@
 <script>
 // @ is an alias to /src
 import SideBar from "@/components/SideBar.vue";
-import HelloWorld from "@/components/HelloWorld.vue";
+import PostList from "@/components/PostList.vue";
 
 export default {
   name: "HomeView",
   components: {
-    HelloWorld,
+    PostList,
     SideBar
 
   },
