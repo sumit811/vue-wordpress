@@ -15,17 +15,30 @@
           <li v-if="!isLoggedIn"><router-link to="/signup" class="nav-link px-2 link-dark">Sign up</router-link></li>
         </ul>
 
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" @submit.prevent="postSearch">
+          <input type="search" class="form-control" placeholder="Search..." aria-label="Search" v-model="searchedTxt">
         </form>
       </div>
     </div>
     isLoggedIn:{{isLoggedIn}}
+    "a/searched":{{this.$store.state.a.searched}}
   </header>
 </template>
 <script>
 export default {
     name: "NavBar",
+    data(){
+      return{
+        searchedTxt: ''
+      }
+    },
+    watch:{
+      searchedTxt: function(newval){ //ewval,oldval
+        if(newval.length===0){
+          this.$store.commit("a/SET_SEARCHED_TRIGGER",false);
+        }
+      }
+    },
     computed:{
       isLoggedIn() {
         return this.$store.getters['b/login/isUserLoggedin']
@@ -35,6 +48,9 @@ export default {
         logout(){
           this.$store.commit("b/login/LOGOUT_USER");
           this.$router.replace('/login');
+        },
+        postSearch(){
+          this.$router.push(`/search?q=${this.searchedTxt}`).catch(() => {});
         }
       }
 //['b/login/fetchLogin']

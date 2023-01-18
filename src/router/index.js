@@ -15,6 +15,11 @@ const routes = [
     meta: { transition: 'fade' },
   },
   {
+    path: "/search",
+    name: "Search",
+    component: () => import("../components/SearchResult.vue"),
+  },
+  {
     path: "/login",
     name: "login",
     component: LoginView,
@@ -51,8 +56,8 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  console.log('to.meta.auth',to.meta.auth);
-  console.info("store.getters['b/login/isUserLoggedin']",store.getters['b/login/isUserLoggedin']);
+  // console.log('to.meta.auth',to.meta.auth);
+  // console.info("store.getters['b/login/isUserLoggedin']",store.getters['b/login/isUserLoggedin']);
   if(('auth' in to.meta) && to.meta.auth && !store.getters['b/login/isUserLoggedin']){
     next('/login');
   } else if(('auth' in to.meta) && !to.meta.auth && store.getters['b/login/isUserLoggedin']){

@@ -41,7 +41,8 @@ Vue.use(Vuex);
 // }
 export default new Vuex.Store({
   state: {
-    showLoading: false
+    showLoading: false,
+    menu:''
   },
   getters: {},
   mutations: {
@@ -49,7 +50,15 @@ export default new Vuex.Store({
       state.showLoading = payload
     }
   },
-  actions: {},
+  actions: {
+    async fetchMenus(){
+      axios.get('/wp/v2/menu-items')
+      .then(response => {
+        console.log(response);
+      })
+    },
+   
+  },
   modules: {
     a:modulePost,
     b:moduleAuthentication,

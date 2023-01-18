@@ -1,12 +1,16 @@
 <template>
-   <div>
+  <div>
     <PostExcerpt :post="post" v-for="post in posts" :key="post.id" />
+    <!-- <component v-bind:is="excerptComp" :post="post" v-for="post in posts" :key="post.id" ></component> -->
+    <Paggination :noOfPages="postPagesCount"/>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState,mapGetters } from 'vuex';
 import PostExcerpt from "./PostExcerpt.vue"
+import Paggination from './Paggination.vue';
+// import PostExcerptSearch from './PostExcerpt-search.vue';
 
 export default {
   name: "HelloWorld",
@@ -18,7 +22,7 @@ export default {
     msg: String,
   },
   components: {
-    PostExcerpt
+    PostExcerpt, Paggination
   },
   methods: {
     // onScroll ({ target: { scrollTop, clientHeight, scrollHeight }}) {
@@ -52,19 +56,27 @@ export default {
     // },
     // reachedBottom: function reachedBottom() {
     //   // const listElm = this.$refs.infiniteList
-     
-      
+
+
     // }
   },
   mounted() {
-    this.reachedBottom();
+    // this.reachedBottom();
   },
   created() {
     // console.log('modulePost');
     this.$store.dispatch("a/fetchPosts");
   },
   computed: {
-    ...mapState('a', ['posts'])
+    ...mapState('a', ['posts']),
+    ...mapGetters('a', ['postPagesCount']),
+    // excerptComp(){
+    //   if(this.searched){
+    //     return PostExcerptSearch
+    //   } else {
+    //     return PostExcerpt;
+    //   }
+    // }
   },
   // filters:{
   //   removeMoreLink:function(v){

@@ -29,6 +29,7 @@ export default {
   },
   created(){
     this.$store.dispatch("b/login/autoLogin");
+    // this.$store.dispatch("fetchMenus")
   }
 };
 </script>
