@@ -9,48 +9,29 @@ axios.defaults.baseURL = 'http://localhost/wordpress/wp-json';
 
 Vue.use(Vuex);  
 
-// const modulePost = {
-//   namespaced: true,
-//   state:{},
-//   getters:{},
-//   mutations:{},
-//   actions:{},
-// };
-
-
-// const moduleLogin = {
-//   namespaced: true,
-//   state:{},
-//   getters:{},
-//   mutations:{},
-//   actions:{},
-// };
-// const moduleSignUP = {
-//   namespaced: true,
-//   state:{},
-//   getters:{},
-//   mutations:{},
-//   actions:{},
-// };
-// const moduleAuthentication = {
-//   namespaced: true,
-//   modules:{
-//     login:moduleLogin,
-//     signup:moduleSignUP,
-//   }
-// }
 export default new Vuex.Store({
   state: {
     showLoading: false,
+    categories:[],
     menu:''
   },
   getters: {},
   mutations: {
     SET_SHOW_LOADING(state,payload){
       state.showLoading = payload
+    },
+    SET_CATEGORIES(state,payload){
+      state.categories = payload
     }
   },
   actions: {
+    async fetchCategories({commit}){
+      axios.get('wp/v2/categories')
+      .then(response => {
+        console.log('wp/v2/categories', response);
+        commit('SET_CATEGORIES',response.data);
+      });
+    },
     async fetchMenus(){
       axios.get('/wp/v2/menu-items')
       .then(response => {
