@@ -15,6 +15,16 @@ const routes = [
     meta: { transition: 'fade' },
   },
   {
+    path: '/tag/:id',
+    name: "tags",
+    component: () => import("../components/PostBy.vue"),
+  },
+  {
+    path: '/category/:id',
+    name: "category",
+    component: () => import("../components/PostBy.vue"),
+  },
+  {
     path: "/search",
     name: "Search",
     component: () => import("../components/SearchResult.vue"),
@@ -29,8 +39,8 @@ const routes = [
     path: "/profile",
     name: "profile",
     component: () =>
-    import(/* webpackChunkName: "profileview" */ "../views/ProfileView.vue"),
-    meta: {auth: true}
+      import(/* webpackChunkName: "profileview" */ "../views/ProfileView.vue"),
+    meta: { auth: true }
   },
   {
     path: "*",
@@ -45,7 +55,6 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
-    meta: {auth: false}
   },
 ];
 
@@ -55,23 +64,32 @@ const router = new VueRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  // console.log('to.meta.auth',to.meta.auth);
-  // console.info("store.getters['b/login/isUserLoggedin']",store.getters['b/login/isUserLoggedin']);
-  if(('auth' in to.meta) && to.meta.auth && !store.getters['b/login/isUserLoggedin']){
-    next('/login');
-  } else if(('auth' in to.meta) && !to.meta.auth && store.getters['b/login/isUserLoggedin']){
-    next('/profile');
-  } else {
-    next();
-  }
-  // if(('auth' in to.meta)  && to.meta.auth && !this.$store.getters['b/login/isUserLoggedin']){
-  //   next('/login');
+store.dispatch("b/login/autoLogin").then(response => {
+  console.log('response',response);
+  router.beforeEach((to, from, next) => {
+    console.error(store)
+    let isUserLoggedin = store.getters["b/login/isUserLoggedin"];
+    console.log('to.meta.auth', to.meta.auth);
+    console.info("isUserLoggedin", isUserLoggedin);
+    console.warn("('auth' in to.meta)", ('auth' in to.meta));
+    if (('auth' in to.meta) && to.meta.auth && !isUserLoggedin) {
+      console.log(111);
+      next('/login');
+    } else if (('auth' in to.meta) && !to.meta.auth && isUserLoggedin) {
+      next('/profile');
+      console.log(222);
+    } else {
+      next();
+      console.log(333);
+    }
+    // if(('auth' in to.meta)  && to.meta.auth && !this.$store.getters['b/login/isUserLoggedin']){
+    //   next('/login');
 
-  // } else if(('auth' in to.meta) && !to.meta.auth && this.$store.getters['b/login/isUserLoggedin']){
-  //   next('/profile');
-  // } else {
+    // } else if(('auth' in to.meta) && !to.meta.auth && this.$store.getters['b/login/isUserLoggedin']){
+    //   next('/profile');
+    // } else {
     //next()
- // }
-});
+    // }
+  });
+})
 export default router;  

@@ -12,8 +12,8 @@ export default {
         PostExcerptSearch
     },
     created(){
-        let q = location.search.split("=");
-        this.$store.dispatch("a/search",q[1]);
+        let u = new URL(location.href);
+        this.$store.dispatch("a/search",u.searchParams.get("q"));
     },
     computed: {
         ...mapState('a', ['searchPost']),

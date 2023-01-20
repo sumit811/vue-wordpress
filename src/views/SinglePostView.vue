@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <article>
+                <article v-if="singlePost.title">
                     <h1>{{ singlePost.title.rendered }}</h1>
                     <section>
                         <div v-html="singlePost.content.rendered"></div>
@@ -45,6 +45,7 @@ export default {
     },
     created() {
         console.log('this.$route.params', this.$route.params);
+        console.warn('this.$route.params.pathMatch.substring(1)',this.$route.params.pathMatch.substring(1));
         this.$store.dispatch("a/fetchSinglePost", this.$route.params.pathMatch.substring(1));
 
     }

@@ -25,11 +25,15 @@ export default{
     },
     getters:{
         getToken: state => state.token,
-        isUserLoggedin: state => !!state.token
+        isUserLoggedin: state => {
+            console.log('!!state.token',!!state.token);
+            return !!state.token
+        }
     },
     actions:{
-        autoLogin({commit}){
+        async autoLogin({commit}){
             let userData = JSON.parse(sessionStorage.getItem('vue-wordpress'));
+            // console.log(userData);
             if(userData){
                 commit('SET_USER',userData);
             }

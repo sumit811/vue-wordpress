@@ -2,7 +2,7 @@
     <footer id="footer">
         <div class="container">
             <footer class="py-5">
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-6 col-md-2 mb-3">
                         <h5>Section</h5>
                         <ul class="nav flex-column">
@@ -47,10 +47,10 @@
                             </div>
                         </form>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
-                    <p>© 2022 Company, Inc. All rights reserved.</p>
+                    <p>&copy; {{year}} Company, Inc. All rights reserved.</p>
                     <ul class="list-unstyled d-flex">
                         <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24">
                                     <use xlink:href="#twitter"></use>
@@ -69,6 +69,12 @@
 </template>
 <script>
 export default{
-    name:"FooterVue"
+    name:"FooterVue",
+    computed:{
+        year:function(){
+            let y = new Date();
+            return y.getFullYear()
+        }
+    }
 }
 </script>

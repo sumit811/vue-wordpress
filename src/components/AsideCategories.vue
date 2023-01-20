@@ -3,7 +3,7 @@
         <h4 class="fst-italic">Categories</h4>
         <ol class="list-unstyled mb-0">
             <li v-for="category in categories" :key="category.id" class="mt-1">
-                <router-link to="/category/">
+                <router-link :to="'/category/' + category.id" >
                     <button type="button" class="btn btn-primary">
                         {{category.name}} <span class="badge badge-light">{{ category.count }}</span>
                     </button>

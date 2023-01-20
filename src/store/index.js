@@ -9,10 +9,11 @@ axios.defaults.baseURL = 'http://localhost/wordpress/wp-json';
 
 Vue.use(Vuex);  
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state: {
     showLoading: false,
     categories:[],
+    tags:[],
     menu:''
   },
   getters: {},
@@ -22,9 +23,17 @@ export default new Vuex.Store({
     },
     SET_CATEGORIES(state,payload){
       state.categories = payload
+    },
+    SET_TAGS(state,payload){
+      state.tags = payload
     }
   },
   actions: {
+    fetchTags({commit}){
+      axios.get('/wp/v2/tags').then(response => {
+        commit('SET_TAGS',response.data)
+      });
+    },
     async fetchCategories({commit}){
       axios.get('wp/v2/categories')
       .then(response => {
@@ -45,3 +54,5 @@ export default new Vuex.Store({
     b:moduleAuthentication,
   },
 });
+
+export default store

@@ -6,6 +6,7 @@
                 content, or something else entirely. Totally up to you.</p>
         </div>
         <AsideCategories />
+        <AsideTags />
         <div class="p-4">
             <h4 class="fst-italic">Archives</h4>
             <ol class="list-unstyled mb-0">
@@ -36,8 +37,9 @@
 </template>
 <script>
 import AsideCategories from './AsideCategories.vue';
+import AsideTags from './AsideTags.vue';
 export default {
     name: "SideBar",
-    components:{AsideCategories}
+    components:{AsideCategories, AsideTags}
 }
 </script>
