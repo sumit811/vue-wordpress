@@ -5,7 +5,8 @@
             <p class="mb-0">Customize this section to tell your visitors a little bit about your publication, writers,
                 content, or something else entirely. Totally up to you.</p>
         </div>
-
+        <AsideCategories />
+        <AsideTags />
         <div class="p-4">
             <h4 class="fst-italic">Archives</h4>
             <ol class="list-unstyled mb-0">
@@ -35,7 +36,10 @@
     </div>
 </template>
 <script>
+import AsideCategories from './AsideCategories.vue';
+import AsideTags from './AsideTags.vue';
 export default {
-    name: "SideBar"
+    name: "SideBar",
+    components:{AsideCategories, AsideTags}
 }
 </script>

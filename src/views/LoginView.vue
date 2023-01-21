@@ -81,6 +81,7 @@ export default {
                 this['b/login/fetchLogin']({ 'username': this.username, 'password': this.password })
                 .then(() => {
                     this.SET_SHOW_LOADING(false);
+                    this.$router.replace('/profile');
                 })
                 .catch(err => {
                     // console.info(err)
