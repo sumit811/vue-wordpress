@@ -26,7 +26,7 @@ export default{
     getters:{
         getToken: state => state.token,
         isUserLoggedin: state => {
-            console.log('!!state.token',!!state.token);
+            // console.log('!!state.token',!!state.token);
             return !!state.token
         }
     },

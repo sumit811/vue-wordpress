@@ -15,6 +15,16 @@ const routes = [
     meta: { transition: 'fade' },
   },
   {
+    path: "/authors",
+    name: "authors",
+    component: () => import("../views/AuthorsView.vue"),
+  },
+  {
+    path: "/authors/:user",
+    name: "authorsDetails",
+    component: () => import("../views/AuthorsDetail.vue"),
+  },
+  {
     path: '/tag/:id',
     name: "tags",
     component: () => import("../components/PostBy.vue"),

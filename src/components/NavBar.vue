@@ -7,7 +7,7 @@
         </router-link>
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><a href="#" class="nav-link px-2 link-secondary">Overview</a></li>
-          <li><a href="#" class="nav-link px-2 link-dark">Inventory</a></li>
+          <li><router-link to="/authors" class="nav-link px-2 link-dark">Our Authors</router-link></li>
           <li v-if="isLoggedIn"><router-link to="/user" class="nav-link px-2 link-dark">Users</router-link></li>
           <li v-if="isLoggedIn"><router-link to="/profile" class="nav-link px-2 link-dark">Profile</router-link></li>
           <li v-if="isLoggedIn"><a href="/logout" class="nav-link px-2 link-dark" @click.prevent="logout">Logout</a></li>
