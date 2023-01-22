@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import axios from "axios";
 import modulePost from "./modules/post"
 import moduleAuthentication from "./modules/authentication"
+import moduleComment from "./modules/comment"
 
 axios.defaults.baseURL = 'http://localhost/wordpress/wp-json';
 
@@ -61,6 +62,16 @@ const store = new Vuex.Store({
         });
 
     },
+    fetchAuthorBio(context, author_id){
+      axios.get('/wp/v2/users/' + author_id)
+      .then(response =>{
+        console.log('fetchAuthorBio',response);
+        context.commit("SET_AUTHOR",response.data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    },
     fetchAuthors(context) {
       context.commit("SET_SHOW_LOADING", true, { root: true });
       axios.get('/wp/v2/users?per_page=50')
@@ -95,6 +106,7 @@ const store = new Vuex.Store({
   modules: {
     a: modulePost,
     b: moduleAuthentication,
+    c: moduleComment
   },
 });
 

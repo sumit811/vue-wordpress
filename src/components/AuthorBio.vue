@@ -5,9 +5,10 @@
                 <img :src="authorImg[96]" class="img-thumbnail rounded" alt="">
             </div> 
             <div class="col-12-8 col-sm-9">
-                <router-link :to="{ name: 'authorsDetails', params: { user: authorSlug+'-'+authorId }}"><h2>{{authorName}}</h2></router-link>
+                <router-link :to="{ name: 'authorsDetails', params: { user: authorUrl }}"><h2>{{authorName}}</h2></router-link>
                 <slot></slot>
             </div> 
+            <footer><router-link :to="{ name: 'authorsDetails', params: { user: authorUrl }}" class="float-end">View all of {{authorName}}'s posts.</router-link></footer>
         </div>
     </article>
 </template>
@@ -29,6 +30,11 @@ export default {
         authorSlug:{
             type: String,
             required: true
+        }
+    },
+    computed:{
+        authorUrl: function(){
+            return this.authorSlug+'-'+ this.authorId
         }
     }
 }

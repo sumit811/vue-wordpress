@@ -18,6 +18,9 @@
                         </div>
                     </footer>
                 </article>
+                <AuthorBio :key="author.id" :author-img="author.avatar_urls" :author-name="author.name" :author-id="author.id" :author-slug="author.slug">
+                        {{author.description}}
+                </AuthorBio>
             </div>
             <div class="col-md-4">
                 <SideBar />
@@ -29,11 +32,12 @@
 <script>
 import { mapState } from 'vuex';
 import SideBar from "@/components/SideBar.vue";
+import AuthorBio from "@/components/AuthorBio.vue"
 
 export default {
     name: 'SinglePostView',
     components: {
-        SideBar
+        SideBar, AuthorBio
     },
     method: {
         getPost: function () {
@@ -41,12 +45,18 @@ export default {
         },
     },
     computed: {
-        ...mapState('a', ['singlePost'])
+        ...mapState('a', ['singlePost']),
+        ...mapState(['author'])
     },
     created() {
         console.log('this.$route.params', this.$route.params);
         console.warn('this.$route.params.pathMatch.substring(1)',this.$route.params.pathMatch.substring(1));
-        this.$store.dispatch("a/fetchSinglePost", this.$route.params.pathMatch.substring(1));
+        this.$store.dispatch("a/fetchSinglePost", this.$route.params.pathMatch.substring(1))
+        .then(()=>{
+            console.log('asdfadfdsafa',this.singlePost);
+            this.$store.dispatch("fetchAuthorBio",this.singlePost.author)
+        });
+        
 
     }
 }
