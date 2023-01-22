@@ -1,5 +1,3 @@
-// import axios from "axios";
-
 import axios from "axios"
 
 export default{
@@ -9,7 +7,7 @@ export default{
         comments:[],
     },
     getters:{},
-    mutation:{
+    mutations:{
         SET_POST_COMMENTS(state,payload){
             state.comments = payload
         }
@@ -18,6 +16,7 @@ export default{
         fetchPostSpecificComments({commit},postId){
             axios.get(`wp/v2/comments?post=${postId}`)
             .then(response => {
+                console.info('fetchPostSpecificComments:-',response);
                 commit("SET_POST_COMMENTS",response.data)
             });
         },
