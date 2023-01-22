@@ -2,7 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
-import SinglePostView from "../views/SinglePostView.vue"
+import SinglePostView from "../views/SinglePostView.vue";
+import PageNotFound from "../views/PageNotFound.vue";
 import store from "@/store";
 
 Vue.use(VueRouter);
@@ -66,6 +67,10 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   },
+  {
+    path: "/404",
+    component: PageNotFound
+  }
 ];
 
 const router = new VueRouter({

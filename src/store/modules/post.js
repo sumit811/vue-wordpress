@@ -111,7 +111,7 @@ export default {
         async fetchSinglePost({ commit }, slug) {
             console.log('fetchSinglePost id:-', slug);
             commit("SET_SHOW_LOADING", true, { root: true });
-            axios.get(`/wp/v2/posts/?slug=${slug}`).then(response => {
+            await axios.get(`/wp/v2/posts/?slug=${slug}`).then(response => {
                 commit("SET_SHOW_LOADING", false, { root: true });
                 commit('SET_SINGLE_POST', response)
             }).catch(error => {
