@@ -28,7 +28,14 @@ export default{
         isUserLoggedin: state => {
             // console.log('!!state.token',!!state.token);
             return !!state.token
-        }
+        },
+        getUserDetail: state =>{
+            return {
+                user_email: state.user_email,
+                user_nicename: state.user_nicename,
+                user_display_name: state.user_display_name,
+            }
+        },
     },
     actions:{
         async autoLogin({commit}){
