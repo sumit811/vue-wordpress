@@ -6,7 +6,7 @@
 
                 <div class="row">
                     <div class="col">
-                        <div class="d-flex flex-start" v-for="comment in comments" :key="comment.id">
+                        <div class="d-flex flex-start mb-4" v-for="comment in comments" :key="comment.id">
                             <img class="rounded-circle shadow-1-strong me-3"
                                 :src="comment.author_avatar_urls[96]" alt="avatar"
                                 width="65" height="65" />

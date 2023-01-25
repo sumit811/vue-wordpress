@@ -22,6 +22,7 @@
                         {{author.description}}
                 </AuthorBio>
                 <Comments :comments="comments"/>
+                <CommentFrm />
             </div>
             <div class="col-md-4">
                 <SideBar />
@@ -35,11 +36,12 @@ import { mapState } from 'vuex';
 import SideBar from "@/components/SideBar.vue";
 import AuthorBio from "@/components/AuthorBio.vue"
 import Comments from "@/components/ShowComments.vue"
+import CommentFrm from "@/components/CommentFrm.vue"
 
 export default {
     name: 'SinglePostView',
     components: {
-        SideBar, AuthorBio, Comments
+        SideBar, AuthorBio, Comments, CommentFrm
     },
     method: {
         getPost: function () {
