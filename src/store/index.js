@@ -24,9 +24,18 @@ const store = new Vuex.Store({
       slug:''
     },
     authorPost: [],
+    ip:''
   },
-  getters: {},
+  getters: {
+    curDate(){
+      let dt = new Date()
+      return dt.toISOString().slice(0, 19).replace('T', ' ');
+    }
+  },
   mutations: {
+    SET_IP(state, payload){
+      state.ip = payload
+    },
     SET_AUTHOR_POST(state, payload) {
       state.author = payload[0].data
       state.authorPost = payload[1].data
@@ -48,7 +57,13 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-     fetchAuthorAndPost(context, user_id) {
+    fetchIP({commit}){
+      axios.get('https://api.ipify.org/?format=json').then(response =>{
+        // console.log('SET_IP',response.data.ip);
+        commit('SET_IP',response.data.ip);
+      })
+    },
+    fetchAuthorAndPost(context, user_id) {
       context.commit("SET_SHOW_LOADING", true, { root: true }); 
        axios.all([axios.get('/wp/v2/users/' + user_id), axios.get('/wp/v2/posts?author=' + user_id)])
         .then(response => {

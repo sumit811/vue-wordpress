@@ -28,6 +28,7 @@ export default {
     TheLoader
   },
   created(){
+    this.$store.dispatch("fetchIP");
     // this.$store.dispatch("b/login/autoLogin");
     // this.$store.dispatch("fetchMenus")
   }
