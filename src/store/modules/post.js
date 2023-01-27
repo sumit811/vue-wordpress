@@ -34,7 +34,7 @@ export default {
         SET_PAGGINATION(state, payload) {
             state.postPaggination.totalpost = Math.ceil(payload['x-wp-total']);
             state.postPaggination.totalpages = Number(payload['x-wp-totalpages']);
-            console.log('postPaggination', state.postPaggination.totalpages);
+            //console.log('postPaggination', state.postPaggination.totalpages);
         }
     },
     getters: {
@@ -42,13 +42,13 @@ export default {
             return state.postPaggination.totalpost;
         },
         postPagesCount(state) {
-            console.warn('postPaggination', state.postPaggination.totalpages);
+            //console.warn('postPaggination', state.postPaggination.totalpages);
             return state.postPaggination.totalpages;
         }
     },
     actions: {
         async fetchPostBy({commit}, param){
-            console.dir(param);
+            //console.dir(param);
             // console.log('typ:'+ param[0], 'query:'+param[1]);
             commit("SET_SHOW_LOADING", true, { root: true });
             let type;
@@ -76,7 +76,7 @@ export default {
             commit("SET_SEARCHED_TRIGGER",true);
             axios.get(`/wp/v2/search?search=${query}`)
                 .then(response => {
-                    console.log('Search Response',response);
+                    //console.log('Search Response',response);
                     commit('SET_SEARCH_POST', response.data);
                     commit('SET_PAGGINATION', response.headers)
                     commit("SET_SHOW_LOADING", false, { root: true });
@@ -109,7 +109,7 @@ export default {
             });
         },
         async fetchSinglePost({ commit }, slug) {
-            console.log('fetchSinglePost id:-', slug);
+            //console.log('fetchSinglePost id:-', slug);
             commit("SET_SHOW_LOADING", true, { root: true });
             await axios.get(`/wp/v2/posts/?slug=${slug}`).then(response => {
                 commit("SET_SHOW_LOADING", false, { root: true });

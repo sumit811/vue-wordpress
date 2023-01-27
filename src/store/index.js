@@ -4,6 +4,7 @@ import axios from "axios";
 import modulePost from "./modules/post"
 import moduleAuthentication from "./modules/authentication"
 import moduleComment from "./modules/comment"
+import moduleNavBar from "./modules/navbar"
 
 axios.defaults.baseURL = 'http://localhost/wordpress/wp-json';
 
@@ -121,7 +122,8 @@ const store = new Vuex.Store({
   modules: {
     a: modulePost,
     b: moduleAuthentication,
-    c: moduleComment
+    c: moduleComment,
+    navbar:moduleNavBar
   },
 });
 

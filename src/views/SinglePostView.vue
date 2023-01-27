@@ -54,11 +54,11 @@ export default {
         ...mapState('c', ['comments'])
     },
     created() {
-        console.log('this.$route.params', this.$route.params);
-        console.warn('this.$route.params.pathMatch.substring(1)',this.$route.params.pathMatch.substring(1));
+        //console.log('this.$route.params', this.$route.params);
+        //console.warn('this.$route.params.pathMatch.substring(1)',this.$route.params.pathMatch.substring(1));
         this.$store.dispatch("a/fetchSinglePost", this.$route.params.pathMatch.substring(1))
         .then(()=>{
-            console.log('asdfadfdsafa',this.singlePost);
+            //console.log('asdfadfdsafa',this.singlePost);
             this.$store.dispatch("fetchAuthorBio",this.singlePost.author);
             this.$store.dispatch("c/fetchPostSpecificComments",this.singlePost.id);
         });
