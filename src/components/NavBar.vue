@@ -9,14 +9,14 @@
         </router-link>
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="#" class="nav-link px-2 link-secondary">Overview</a></li>
+          <li><a href="#" class="nav-link px-2 link-secondary">About us</a></li>
           <li><router-link to="/authors" class="nav-link px-2 link-dark">Our Authors</router-link></li>
           <li v-if="isLoggedIn"><router-link to="/user" class="nav-link px-2 link-dark">Users</router-link></li>
           <li v-if="isLoggedIn"><router-link to="/profile" class="nav-link px-2 link-dark">Profile</router-link></li>
           <li v-if="isLoggedIn"><a href="/logout" class="nav-link px-2 link-dark" @click.prevent="logout">Logout</a>
           </li>
           <li v-if="!isLoggedIn"><router-link to="login" class="nav-link px-2 link-dark">Login</router-link></li>
-          <li v-if="!isLoggedIn"><router-link to="/signup" class="nav-link px-2 link-dark">Sign up</router-link></li>
+          <li><router-link to="/contactus" class="nav-link px-2 link-dark">Contact us</router-link></li>
         </ul>
 
         <div class="col-md-3 text-end">

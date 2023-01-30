@@ -20,6 +20,7 @@
 import NavBar from "@/components/NavBar.vue";
 import FooterVue from "./components/Footer.vue";
 import TheLoader from "./components/TheLoader.vue";
+import mixinOne from "./mixin/mixinOne.js"
 
 export default {
   components: {
@@ -27,6 +28,7 @@ export default {
     FooterVue,
     TheLoader
   },
+  mixins:[mixinOne],
   created(){
     this.$store.dispatch("fetchIP");
     this.$store.dispatch("fetchMenu")

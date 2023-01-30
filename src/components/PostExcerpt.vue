@@ -17,7 +17,9 @@
     </article> -->
 </template>
 <script>
+import mixinOne from '@/mixin/mixinOne';
 export default {
+    mixins:[mixinOne],
     props: {
         post: {
             type: Object,
@@ -25,19 +27,19 @@ export default {
         }
     },
     methods: {
-        removeMoreLink(v) {
-            let parser = new DOMParser();
-            const doc = parser.parseFromString(v, "text/html");
-            let links = doc.getElementsByClassName("more-link");
-            [...links].forEach((link) => {
-                console.log('link:-',link)
-                // link.setAttribute("href", "#");
-                link.remove();
-            });
-            // console.dir(doc);
-            // console.log(doc.documentElement.innerHTML);
-            return doc.documentElement.innerHTML;
-        },
+        // removeMoreLink(v) {
+        //     let parser = new DOMParser();
+        //     const doc = parser.parseFromString(v, "text/html");
+        //     let links = doc.getElementsByClassName("more-link");
+        //     [...links].forEach((link) => {
+        //         console.log('link:-',link)
+        //         // link.setAttribute("href", "#");
+        //         link.remove();
+        //     });
+        //     // console.dir(doc);
+        //     // console.log(doc.documentElement.innerHTML);
+        //     return doc.documentElement.innerHTML;
+        // },
     },
 }
 </script>
