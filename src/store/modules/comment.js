@@ -1,43 +1,65 @@
 import axios from "axios"
 
-export default{
-    name:'moduleComment',
+export default {
+    name: 'moduleComment',
     namespaced: true,
-    state:{
-        comments:[],
+    state: {
+        comments: [],
+        post_comment_msg: ''
     },
-    getters:{},
-    mutations:{
-        SET_POST_COMMENTS(state,payload){
-            state.comments = payload
+    getters: {},
+    mutations: {
+        SET_POST_COMMENTS(state, payload) {
+            state.comments.unshift(...payload)
+        },
+        SET_POST_COMMENT_MSG(state, payload){
+            state.post_comment_msg = payload
         }
+        // UPDATE_POST_COMMENTS(state,payload){}
     },
-    actions:{
-        postComment(context,comment){
+    actions: {
+        async postComment(context, comment) {
+            //getUserDetail,getToken
+            // console.log(context)
+            let user = context.rootGetters['b/login/getUserDetail'];
+            let token = context.rootGetters['b/login/getToken']
+            let post = context.rootState.a.singlePost;
+            // console.log('postComment-getUserDetail',user,post);
+            let headerdata = {
+                Authorization : `Bearer ${token}`
+               }
             let commentData = {
-                author:'author',
-                author_email:'author_email',
-                author_ip:'author_ip',
-                author_name:'author_name',
-                author_url:'author_url',
-                author_user_agent:'author_user_agent',
-                content:'content',
-                date:'date',
-                date_gmt:'date_gmt',
-                parent:'parent',
-                post:'post',
-                status:'author_url',
-                meta:'meta'
+                author: 4,
+                author_email: user.user_email,
+                author_name: user.user_display_name,
+                author_user_agent: window.navigator.userAgent,
+                content: comment,
+                date: context.rootGetters['curDate'],
+                parent: 0,
+                post: post['id'],
+                toekn: token,
             }
             ///wp/v2/comments
-            console.log('postComment:-',context,comment,commentData);
+            console.log('postComment:-', context, comment, commentData);
+            await axios.post(`wp/v2/comments`, commentData, {
+                headers: headerdata
+            }).then(response => {
+                console.log('commentpost', response);
+                context.commit("SET_POST_COMMENTS",[response.data])
+                context.commit('SET_POST_COMMENT_MSG','Your comment is successfully added.')
+
+            }).catch(error => {
+                console.log(error)
+                context.commit('SET_POST_COMMENT_MSG',error.response.data.message)
+
+            })
         },
-        fetchPostSpecificComments({commit},postId){
+        fetchPostSpecificComments({ commit }, postId) {
             axios.get(`wp/v2/comments?post=${postId}`)
-            .then(response => {
-                console.info('fetchPostSpecificComments:-',response);
-                commit("SET_POST_COMMENTS",response.data)
-            });
+                .then(response => {
+                    console.info('fetchPostSpecificComments:-', response);
+                    commit("SET_POST_COMMENTS", response.data)
+                });
         },
     }
 }

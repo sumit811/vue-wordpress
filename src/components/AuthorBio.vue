@@ -1,19 +1,38 @@
 <template>
-    <article>
+    <article :style="{ backgroundColor:`#${bgcolor}` }">
         <div class="row">
             <div class="col-12-4 col-sm-3">
                 <img :src="authorImg[96]" class="img-thumbnail rounded" alt="">
+                <rainbowBtn @randomBG="newBgColor"/>
             </div> 
             <div class="col-12-8 col-sm-9">
-                <router-link :to="{ name: 'authorsDetails', params: { user: authorUrl }}"><h2>{{authorName}}</h2></router-link>
+                <router-link :to="{ name: 'authorsDetails', params: { user: authorUrl }}">
+                    <h2>{{authorName}}</h2>
+                </router-link>
                 <slot></slot>
             </div> 
-            <footer><router-link :to="{ name: 'authorsDetails', params: { user: authorUrl }}" class="float-end">View all of {{authorName}}'s posts.</router-link></footer>
+            <footer>
+                <router-link :to="{ name: 'authorsDetails', params: { user: authorUrl }}" class="float-end">
+                    View all of {{authorName}}'s posts.
+                </router-link>
+            </footer>
         </div>
     </article>
 </template>
 <script>
+import rainbowBtn from './rainbowBtn.vue';
 export default {
+    components:{rainbowBtn},
+    data(){
+        return{
+            bgcolor:'fff'
+        }
+    },
+    methods:{
+        newBgColor: function(v){
+            this.bgcolor = v
+        }
+    },
     props:{
         authorImg:{
             type: Object,

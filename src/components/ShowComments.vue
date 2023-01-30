@@ -14,7 +14,7 @@
                                 <div>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <p class="mb-1">
-                                            {{comment.author_name}} <span class="small">- 2 hours ago</span>
+                                            {{comment.author_name | commentName }} <span class="small">- 2 hours ago</span>
                                         </p>
                                         <a href="#!"><i class="fas fa-reply fa-xs"></i><span class="small">
                                                 reply</span></a>
@@ -35,6 +35,11 @@ export default {
         comments:{
             required: true,
             type: Array
+        }
+    },
+    filters:{
+        commentName: function(v){
+            return v+'............................';
         }
     }
 }

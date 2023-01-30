@@ -9,8 +9,7 @@
                         <input type="text" class="form-control" id="username" v-model.trim="username"
                             :class="{ 'is-invalid': !this.$v.username.required && error }">
                         <p class="invalid-feedback"
-                            :class="{ 'd-none': !error, 'd-block': !this.$v.username.required && error }">**Please enter
-                            your username.</p>
+                            :class="{ 'd-none': !error, 'd-block': !this.$v.username.required && error }">**Please enter your username.</p>
 
                     </div>
                     <div class="mb-3">

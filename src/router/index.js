@@ -16,6 +16,18 @@ const routes = [
     meta: { transition: 'fade' },
   },
   {
+    path: "/about",
+    name: "about",
+    component: HomeView,
+    meta: { transition: 'fade' },
+  },
+  {
+    path: "/contactus",
+    name: "contactus",
+    component: () => import(/* webpackChunkName: "contactus" */ "../views/ContactView.vue"),
+    meta: { transition: 'fade' },
+  },
+  {
     path: "/authors",
     name: "authors",
     component: () => import("../views/AuthorsView.vue"),
