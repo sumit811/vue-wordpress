@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <NavBar @tofooter="fromnavtofooter"/>
+    <NavBar/>
     
   <router-view v-slot="{ Component,route }">
     <transition name="fade" mode="out-in">
@@ -11,7 +11,7 @@
   </router-view>
 
 
-    <FooterVue :msgFromNav = "footerMsg"/>
+    <FooterVue/>
     <TheLoader />
   </div>
 </template>
@@ -35,16 +35,6 @@ export default {
     // this.$store.dispatch("b/login/autoLogin");
     // this.$store.dispatch("fetchMenus")
   },
-  data(){
-    return{
-      footerMsg:''
-    }
-  },
-  methods:{
-    fromnavtofooter(v){
-      this.footerMsg = v;
-    }
-  }
 };
 </script>
 

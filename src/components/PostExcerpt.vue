@@ -1,6 +1,6 @@
 <template>
     <article>
-        <h3><router-link :to="post.slug">{{ post.title.rendered }}</router-link></h3>
+        <h3><router-link :to="{ path: '/' + post.slug }">{{ post.title.rendered }}</router-link></h3>
         <div v-html="removeMoreLink(post.excerpt.rendered, post.slug)"></div>
         <footer>
             <p>Published: {{ post.date }}</p>
@@ -19,7 +19,7 @@
 <script>
 import mixinOne from '@/mixin/mixinOne';
 export default {
-    mixins:[mixinOne],
+    mixins: [mixinOne],
     props: {
         post: {
             type: Object,
@@ -43,3 +43,18 @@ export default {
     },
 }
 </script>
+<style scoped>
+article {
+    background-color: #cff4fc;
+    border: 1px solid #9eeaf9;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0px 1px 7px 2px #9eeaf9;
+    color: #087990;
+}
+article h3 a{
+    text-decoration: none;
+    color: #0dcaf0;
+}
+</style>

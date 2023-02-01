@@ -11,7 +11,6 @@
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
           <li><router-link to="/aboutus" class="nav-link px-2 link-dark">About us</router-link></li>
           <li><router-link to="/authors" class="nav-link px-2 link-dark">Our Authors</router-link></li>
-          <li v-if="isLoggedIn"><router-link to="/user" class="nav-link px-2 link-dark">Users</router-link></li>
           <li v-if="isLoggedIn"><router-link to="/profile" class="nav-link px-2 link-dark">Profile</router-link></li>
           <li v-if="isLoggedIn"><a href="/logout" class="nav-link px-2 link-dark" @click.prevent="logout">Logout</a>
           </li>
@@ -25,7 +24,7 @@
           </form>
         </div>
       </header>
-      <button @click="tofooter">To footer</button>
+      
       <!---->
     </div>
   </header>
@@ -51,9 +50,7 @@ export default {
     },
   },
   methods: {
-    tofooter(){
-      this.$emit('tofooter','From Header to footer')
-    },
+    
     logout() {
       this.$store.commit("b/login/LOGOUT_USER");
       this.$router.replace('/login');

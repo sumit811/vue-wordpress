@@ -53,3 +53,11 @@ export default {
     },
 }
 </script>
+<style scoped>
+h2{
+    margin: 10px 0 20px 0;
+    border-bottom: 1px solid;
+    padding-bottom: 15px;
+    text-transform: capitalize;
+}
+</style>
