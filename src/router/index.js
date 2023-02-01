@@ -16,12 +16,6 @@ const routes = [
     meta: { transition: 'fade' },
   },
   {
-    path: "/about",
-    name: "about",
-    component: HomeView,
-    meta: { transition: 'fade' },
-  },
-  {
     path: "/contactus",
     name: "contactus",
     component: () => import(/* webpackChunkName: "contactus" */ "../views/ContactView.vue"),
@@ -71,8 +65,8 @@ const routes = [
     meta: { transition: 'fade' },
   },
   {
-    path: "/about",
-    name: "about",
+    path: "/aboutus",
+    name: "aboutus",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.

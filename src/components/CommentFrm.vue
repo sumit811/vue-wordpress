@@ -37,8 +37,8 @@ export default {
             })
         },
     },
-    computed:{
-        commentMsg:function(){
+    computed: {
+        commentMsg: function () {
             return this.$store.state.c.post_comment_msg
         }
     }

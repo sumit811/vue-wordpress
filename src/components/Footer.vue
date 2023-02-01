@@ -61,6 +61,7 @@
                         <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24">
                                     <use xlink:href="#facebook"></use>
                                 </svg></a></li>
+                                <li v-if="msgFromNav">{{msgFromNav}}</li>
                     </ul>
                 </div>
             </footer>
@@ -70,6 +71,12 @@
 <script>
 export default{
     name:"FooterVue",
+    props:{
+        msgFromNav:{
+            type: String,
+            default:null
+        }
+    },
     computed:{
         year:function(){
             let y = new Date();
