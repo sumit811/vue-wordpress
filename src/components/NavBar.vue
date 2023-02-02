@@ -62,3 +62,11 @@ export default {
   //['b/login/fetchLogin']
 }
 </script>
+<style scoped>
+.nav-link {
+  padding-bottom: 5px;
+}
+.router-link-active{
+  text-decoration: underline;
+}
+</style>

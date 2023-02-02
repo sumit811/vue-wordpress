@@ -41,10 +41,5 @@ import AsideTags from './AsideTags.vue';
 export default {
     name: "SideBar",
     components: { AsideCategories, AsideTags },
-    methods: {
-        tofooter() {
-            this.$emit('tofooter', 'From Header to footer')
-        },
-    }
 }
 </script>

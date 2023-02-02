@@ -5,7 +5,7 @@
         <PostList msg="Welcome to Your Vue.js App" />
       </div>
       <div class="col-md-4">
-        <SideBar @tofooter="fromnavtofooter"/>
+        <SideBar />
       </div>
     </div>
   </div>
