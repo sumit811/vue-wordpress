@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <NavBar />
+    <NavBar/>
     
   <router-view v-slot="{ Component,route }">
     <transition name="fade" mode="out-in">
@@ -11,7 +11,7 @@
   </router-view>
 
 
-    <FooterVue />
+    <FooterVue/>
     <TheLoader />
   </div>
 </template>
@@ -34,7 +34,7 @@ export default {
     this.$store.dispatch("fetchMenu")
     // this.$store.dispatch("b/login/autoLogin");
     // this.$store.dispatch("fetchMenus")
-  }
+  },
 };
 </script>
 

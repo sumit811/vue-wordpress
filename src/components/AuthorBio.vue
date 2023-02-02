@@ -1,12 +1,12 @@
 <template>
-    <article :style="{ backgroundColor:`#${bgcolor}` }">
+    <article :style="{ backgroundColor:`#${bgcolor}` }" class="p-3">
         <div class="row">
-            <div class="col-12-4 col-sm-3">
+            <div class="col-12-4 col-sm-3 text-center">
                 <img :src="authorImg[96]" class="img-thumbnail rounded" alt="">
-                <rainbowBtn @randomBG="newBgColor"/>
+                <rainbowBtn @randomBG="newBgColor" btnText = "Change BG" class="mt-4"/>
             </div> 
             <div class="col-12-8 col-sm-9">
-                <router-link :to="{ name: 'authorsDetails', params: { user: authorUrl }}">
+                <router-link :to="{ name: 'authorsDetails', params: { user: authorUrl }}" class="link-info text-decoration-none">
                     <h2>{{authorName}}</h2>
                 </router-link>
                 <slot></slot>

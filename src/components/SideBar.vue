@@ -40,6 +40,6 @@ import AsideCategories from './AsideCategories.vue';
 import AsideTags from './AsideTags.vue';
 export default {
     name: "SideBar",
-    components:{AsideCategories, AsideTags}
+    components: { AsideCategories, AsideTags },
 }
 </script>

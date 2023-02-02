@@ -63,6 +63,12 @@ export default {
                 this.error = true;
             } else {
                 this.error = false;
+                // let payload = {
+                //     title:this.name,
+                //     excerpt:this.email,
+                //     content:this.message
+                // }
+                // this.$store.dispatch('contactus/contactus_add',payload)
                 this.success = true;
                 this.name = '',this.email ='', this.message = ''
             }

@@ -5,6 +5,7 @@ import modulePost from "./modules/post"
 import moduleAuthentication from "./modules/authentication"
 import moduleComment from "./modules/comment"
 import moduleNavBar from "./modules/navbar"
+import moduleContactus from "./modules/contactus"
 
 axios.defaults.baseURL = 'http://localhost/wordpress/wp-json';
 
@@ -25,7 +26,8 @@ const store = new Vuex.Store({
       slug:''
     },
     authorPost: [],
-    ip:''
+    ip:'',
+    page:{}
   },
   getters: {
     curDate(){
@@ -34,6 +36,9 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
+    SET_PAGE(state, payload){
+      state.page = payload
+    },
     SET_IP(state, payload){
       state.ip = payload
     },
@@ -64,6 +69,17 @@ const store = new Vuex.Store({
         commit('SET_IP',response.data.ip);
       })
     },
+    fetchPage(context,pageId){
+      context.commit("SET_SHOW_LOADING", true, { root: true });
+      axios.get(`/wp/v2/pages/${pageId}`)
+      .then(response => {
+        context.commit('SET_PAGE',response.data)
+        context.commit("SET_SHOW_LOADING", false, { root: true });
+      }).catch(error => {
+        context.commit("SET_SHOW_LOADING", false, { root: true });
+        console.log(error);
+      })
+    },
     fetchAuthorAndPost(context, user_id) {
       context.commit("SET_SHOW_LOADING", true, { root: true }); 
        axios.all([axios.get('/wp/v2/users/' + user_id), axios.get('/wp/v2/posts?author=' + user_id)])
@@ -81,7 +97,7 @@ const store = new Vuex.Store({
     fetchAuthorBio(context, author_id){
       axios.get('/wp/v2/users/' + author_id)
       .then(response =>{
-        console.log('fetchAuthorBio',response);
+        // console.log('fetchAuthorBio',response);
         context.commit("SET_AUTHOR",response.data)
       })
       .catch(error => {
@@ -92,6 +108,7 @@ const store = new Vuex.Store({
       context.commit("SET_SHOW_LOADING", true, { root: true });
       axios.get('/wp/v2/users?per_page=50')
         .then(response => {
+          console.log('fetchAuthors action');
           context.commit("SET_AUTHORS", response.data)
           context.commit("SET_SHOW_LOADING", false, { root: true });
         }).catch(error => {
@@ -123,7 +140,8 @@ const store = new Vuex.Store({
     a: modulePost,
     b: moduleAuthentication,
     c: moduleComment,
-    navbar:moduleNavBar
+    navbar:moduleNavBar,
+    contactus:moduleContactus
   },
 });
 
