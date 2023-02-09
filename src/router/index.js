@@ -85,23 +85,23 @@ const router = new VueRouter({
   routes,
 });
 
-store.dispatch("b/login/autoLogin").then(response => {
-  console.log('response',response);
+store.dispatch("b/login/autoLogin").then(() => {
+  // console.log('response',response);
   router.beforeEach((to, from, next) => {
-    console.error(store)
+    // console.error(store)
     let isUserLoggedin = store.getters["b/login/isUserLoggedin"];
-    console.log('to.meta.auth', to.meta.auth);
-    console.info("isUserLoggedin", isUserLoggedin);
-    console.warn("('auth' in to.meta)", ('auth' in to.meta));
+    // console.log('to.meta.auth', to.meta.auth);
+    // console.info("isUserLoggedin", isUserLoggedin);
+    // console.warn("('auth' in to.meta)", ('auth' in to.meta));
     if (('auth' in to.meta) && to.meta.auth && !isUserLoggedin) {
-      console.log(111);
+      // console.log(111);
       next('/login');
     } else if (('auth' in to.meta) && !to.meta.auth && isUserLoggedin) {
       next('/profile');
-      console.log(222);
+      // console.log(222);
     } else {
       next();
-      console.log(333);
+      // console.log(333);
     }
     // if(('auth' in to.meta)  && to.meta.auth && !this.$store.getters['b/login/isUserLoggedin']){
     //   next('/login');

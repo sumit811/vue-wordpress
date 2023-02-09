@@ -48,6 +48,7 @@ export default {
       if (newval.length === 0) {
         console.log('watched newval length is 0')
         this.$store.commit("a/SET_SEARCHED_TRIGGER", false);
+        this.$router.push('/search');
       }
     }
   },
