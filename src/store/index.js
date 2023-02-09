@@ -7,7 +7,8 @@ import moduleComment from "./modules/comment"
 import moduleNavBar from "./modules/navbar"
 import moduleContactus from "./modules/contactus"
 
-axios.defaults.baseURL = 'http://localhost/wordpress/wp-json';
+// axios.defaults.baseURL = 'http://localhost/wordpress/index.php/wp-json';
+axios.defaults.baseURL = 'http://localhost:8080/wordpress/index.php/wp-json';
 
 
 Vue.use(Vuex);
