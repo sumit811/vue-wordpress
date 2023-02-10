@@ -31,7 +31,7 @@ export default {
   mixins:[mixinOne],
   created(){
     this.$store.dispatch("fetchIP");
-    this.$store.dispatch("fetchMenu")
+    // this.$store.dispatch("fetchMenu")
     // this.$store.dispatch("b/login/autoLogin");
     // this.$store.dispatch("fetchMenus")
   },
