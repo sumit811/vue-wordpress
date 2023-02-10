@@ -109,7 +109,7 @@ const store = new Vuex.Store({
       context.commit("SET_SHOW_LOADING", true, { root: true });
       axios.get('/wp/v2/users?per_page=50')
         .then(response => {
-          console.log('fetchAuthors action');
+          // console.log('fetchAuthors action');
           context.commit("SET_AUTHORS", response.data)
           context.commit("SET_SHOW_LOADING", false, { root: true });
         }).catch(error => {
@@ -125,7 +125,7 @@ const store = new Vuex.Store({
     async fetchCategories({ commit }) {
       axios.get('wp/v2/categories')
         .then(response => {
-          console.log('wp/v2/categories', response);
+          // console.log('wp/v2/categories', response);
           commit('SET_CATEGORIES', response.data);
         });
     },
