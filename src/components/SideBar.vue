@@ -28,9 +28,8 @@
         <div class="p-4">
             <h4 class="fst-italic">Elsewhere</h4>
             <ol class="list-unstyled">
-                <li><a href="#">GitHub</a></li>
-                <li><a href="#">Twitter</a></li>
-                <li><a href="#">Facebook</a></li>
+                <li><a href="https://www.linkedin.com/in/sumit-u-11344329/" target="_blank">GitHub</a></li>
+                <li><a href="https://github.com/sumit811" target="_blank">Linkendin</a></li>
             </ol>
         </div>
     </div>
