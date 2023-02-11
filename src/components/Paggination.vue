@@ -52,9 +52,6 @@ export default {
     mounted() {
         this.pageLinkArr();
     },
-    beforeUpdate() {
-        console.log(this.$refs.navItems.childNodes[1]);
-    },
     methods: {
         pageLinkArr() {
             let x = false;

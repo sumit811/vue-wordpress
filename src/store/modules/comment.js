@@ -57,7 +57,7 @@ export default {
         fetchPostSpecificComments({ commit }, postId) {
             axios.get(`wp/v2/comments?post=${postId}`)
                 .then(response => {
-                    console.info('fetchPostSpecificComments:-', response);
+                    // console.info('fetchPostSpecificComments:-', response);
                     commit("SET_POST_COMMENTS", response.data)
                 });
         },

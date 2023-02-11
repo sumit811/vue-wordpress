@@ -2,22 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <article v-if="singlePost.title">
-                    <h1>{{ singlePost.title.rendered }}</h1>
-                    <section>
-                        <div v-html="singlePost.content.rendered"></div>
-                    </section>
-                    <hr />
-                    <footer>
-                        <div class="row">
-                            <div class="col">Published January 7, 2023</div>
-                            <div class="col">
-                                <p>Categorized as Category4</p>
-                                <p>Tagged Tag5</p>
-                            </div>
-                        </div>
-                    </footer>
-                </article>
+                <SinglePost :singlePost="singlePost" v-if="singlePost"/>
                 <AuthorBio :key="author.id" :author-img="author.avatar_urls" :author-name="author.name" :author-id="author.id" :author-slug="author.slug">
                         {{author.description}}
                 </AuthorBio>
@@ -37,16 +22,12 @@ import SideBar from "@/components/SideBar.vue";
 import AuthorBio from "@/components/AuthorBio.vue"
 import Comments from "@/components/ShowComments.vue"
 import CommentFrm from "@/components/CommentFrm.vue"
+import SinglePost from '@/components/SinglePost.vue';
 
 export default {
     name: 'SinglePostView',
     components: {
-        SideBar, AuthorBio, Comments, CommentFrm
-    },
-    method: {
-        getPost: function () {
-
-        },
+        SideBar, AuthorBio, Comments, CommentFrm, SinglePost
     },
     computed: {
         ...mapState('a', ['singlePost']),
@@ -54,11 +35,10 @@ export default {
         ...mapState('c', ['comments'])
     },
     created() {
-        //console.log('this.$route.params', this.$route.params);
-        //console.warn('this.$route.params.pathMatch.substring(1)',this.$route.params.pathMatch.substring(1));
         this.$store.dispatch("a/fetchSinglePost", this.$route.params.pathMatch.substring(1))
         .then(()=>{
-            //console.log('asdfadfdsafa',this.singlePost);
+            // console.log('this.singlePost.author',this.singlePost.author);
+            // console.log('this.singlePost.id',this.singlePost.id);
             this.$store.dispatch("fetchAuthorBio",this.singlePost.author);
             this.$store.dispatch("c/fetchPostSpecificComments",this.singlePost.id);
         });
@@ -67,8 +47,3 @@ export default {
     }
 }
 </script>
-<style scoped>
-section>>>img {
-    max-width: 100%;
-}
-</style>
