@@ -1,15 +1,17 @@
 <template>
     <div class="p-4">
         <h4 class="fst-italic">Categories</h4>
-        <ol class="list-unstyled mb-0">
-            <li v-for="category in categories" :key="category.id" class="mt-1">
-                <router-link :to="'/category/' + category.id" >
-                    <button type="button" class="btn btn-primary">
-                        {{category.name}} <span class="badge badge-light">{{ category.count }}</span>
-                    </button>
-                </router-link>
+        <ul class="list-group list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-start" v-for="category in categories"
+                :key="category.id">
+                <div class="ms-2 me-auto">
+                    <router-link :to="'/category/' + category.id">
+                        <div class="fw-bold">{{ category.name }}</div>
+                    </router-link>    
+                </div>
+                <span class="badge bg-primary rounded-pill">{{ category.count }}</span>
             </li>
-        </ol>
+        </ul>
     </div>
 </template>
 <script>
@@ -18,7 +20,7 @@ export default {
     created() {
         this.$store.dispatch("fetchCategories");
     },
-    computed:{
+    computed: {
         ...mapState(['categories'])
     }
 }

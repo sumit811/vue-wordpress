@@ -28,9 +28,8 @@ export default {
     computed: {
         ...mapState('a', ['postBy']),
         postbyDetail: function () {
-            console.log(this.$route)
-            return this.$route.name + ':' + this.$route.params.id
-        }
+            return this.$route.name + ':' + this.tagIdtoName(this.$route.name,this.$route.params.id)
+        },
     },
     watch:{
         $route(to,from){
@@ -40,12 +39,25 @@ export default {
         },
     },
     methods: {
+        tagIdtoName(type,id){
+            let res = ''
+            if(type=='tags'){
+                res = this.$store.state.tags.filter(t => { 
+                    if(id==t.id)
+                    return true;
+                });
+            } else if(type=='category'){
+                res = this.$store.state.categories.filter(t => { 
+                    if(id==t.id)
+                    return true;
+                });
+            }
+            return res[0].name;
+            
+        },
         fetchPostby: function(){
             let q = location.pathname.split('/')
-            // console.log('q',q[1],q[2]);
-            this.$store.dispatch("a/fetchPostBy",[q[1],q[2]]).then(response => {
-                console.log('aaaaaa',response);
-            });
+            this.$store.dispatch("a/fetchPostBy",[q[1],q[2]]);
         },
     },
     created() {

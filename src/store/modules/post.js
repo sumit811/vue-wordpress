@@ -29,7 +29,8 @@ export default {
             state.posts = payload
         },
         SET_SINGLE_POST(state, payload) {
-            state.singlePost = payload.data[0]
+            // console.log('payload',payload[0]);
+            state.singlePost = payload[0]
         },
         SET_PAGGINATION(state, payload) {
             state.postPaggination.totalpost = Math.ceil(payload['x-wp-total']);
@@ -62,11 +63,11 @@ export default {
             }
             await axios.get(`wp/v2/posts?${type}=${param[1]}`)
             .then(response => {
-                console.log('response.data',response.data);
-                console.log('response.status',response.status);
-                console.log('response.statusText',response.statusText);
-                console.log('response.headers',response.headers);
-                console.log('response.config',response.config);
+                // console.log('response.data',response.data);
+                // console.log('response.status',response.status);
+                // console.log('response.statusText',response.statusText);
+                // console.log('response.headers',response.headers);
+                // console.log('response.config',response.config);
                 commit('SET_POSTBY',response.data)
                 commit("SET_SHOW_LOADING", false, { root: true });
             });
@@ -112,8 +113,9 @@ export default {
             //console.log('fetchSinglePost id:-', slug);
             commit("SET_SHOW_LOADING", true, { root: true });
             await axios.get(`/wp/v2/posts/?slug=${slug}`).then(response => {
+                // console.log('fetchSinglePost',response);
                 commit("SET_SHOW_LOADING", false, { root: true });
-                commit('SET_SINGLE_POST', response)
+                commit('SET_SINGLE_POST', response.data)
             }).catch(error => {
                 console.log('fetchSinglePost', error);
                 commit("SET_SHOW_LOADING", false, { root: true });
