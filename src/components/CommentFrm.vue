@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-5">
+    <div class="mt-5" v-if="isLoggedIn">
         <h3>Leave a comment</h3>
         <p>Logged in as admin. Edit your profile. Log out? Required fields are marked *</p>
         <div class="alert alert-danger" role="alert" v-if="commentMsg">
@@ -12,6 +12,8 @@
         <button type="submit" class="btn btn-primary" @click="commentAdd">Post Comment</button>
         {{ comment }}
     </div>
+    <h3 class="mt-5 text-center" v-else>Please login to enter your comment.<br />
+    </h3>
 </template>
 <script>
 export default {
@@ -38,6 +40,9 @@ export default {
         },
     },
     computed: {
+        isLoggedIn() {
+            return this.$store.getters['b/login/isUserLoggedin']
+        },
         commentMsg: function () {
             return this.$store.state.c.post_comment_msg
         }
