@@ -52,6 +52,14 @@ export default {
     mounted() {
         this.pageLinkArr();
     },
+    watch:{
+        noOfPages(newVal,oldVal){
+            console.log('postPagesCount',newVal,oldVal);
+            if(oldVal != newVal){
+                this.pageLinkArr();
+            }
+        }
+    },
     methods: {
         pageLinkArr() {
             let x = false;
@@ -109,7 +117,7 @@ export default {
                     this.current = n;
                     break;
             }
-            this.$store.dispatch("a/fetchPosts", this.current);
+            this.$router.push({query: { page: n } }).catch(() => {})
         },
     }
 }

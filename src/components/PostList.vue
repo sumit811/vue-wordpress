@@ -35,7 +35,14 @@ export default {
     ...mapGetters('a', ['postPagesCount']),
     
   },
+  watch:{
+    $route(to, from){
+      if(to.query != from.query){
+        this.$store.dispatch("a/fetchPosts", to.query.page);
+      }
 
+    }
+  }
 };
 </script>
 

@@ -13,13 +13,15 @@ const routes = [
     path: "/",
     name: "home",
     component: HomeView,
-    meta: { transition: 'fade' },
+  },
+  {
+    path: "/page/:id",
+    component: HomeView,
   },
   {
     path: "/contactus",
     name: "contactus",
     component: () => import(/* webpackChunkName: "contactus" */ "../views/ContactView.vue"),
-    meta: { transition: 'fade' },
   },
   {
     path: "/authors",
@@ -50,7 +52,7 @@ const routes = [
     path: "/login",
     name: "login",
     component: LoginView,
-    meta: { transition: 'fade', auth: false },
+    meta: {auth: false },
   },
   {
     path: "/profile",
@@ -62,7 +64,6 @@ const routes = [
   {
     path: "*",
     component: SinglePostView,
-    meta: { transition: 'fade' },
   },
   {
     path: "/aboutus",
