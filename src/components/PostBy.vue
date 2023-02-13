@@ -2,8 +2,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 post-box-js">
-                <h2>{{ postbyDetail }}</h2>
+                <h2 v-if="this.postbyDetail">{{ postbyDetail }}</h2>
                 <PostExcerpt :post="post" v-for="post in postBy" :key="post.id" />
+                <Paggination :noOfPages="postPagesCount" v-if="postPagesCount" />
             </div>
             <div class="col-md-4">
                 <SideBar />
@@ -14,7 +15,9 @@
 <script>
 import SideBar from "@/components/SideBar.vue";
 import PostExcerpt from "./PostExcerpt.vue"
-import { mapState } from "vuex";
+import Paggination from './Paggination.vue';
+import { mapState,mapGetters } from 'vuex';
+
 export default {
     name: 'PostBy',
     data() {
@@ -23,10 +26,11 @@ export default {
         }
     },
     components:{
-        SideBar, PostExcerpt
+        SideBar, PostExcerpt,Paggination
     },
     computed: {
         ...mapState('a', ['postBy']),
+        ...mapGetters('a', ['postPagesCount']),
         postbyDetail: function () {
             return this.$route.name + ':' + this.tagIdtoName(this.$route.name,this.$route.params.id)
         },
@@ -52,12 +56,14 @@ export default {
                     return true;
                 });
             }
-            return res[0].name;
+            if(Array.isArray(res) && res.length>0){
+                return res[0].name;
+            }
             
         },
         fetchPostby: function(){
-            let q = location.pathname.split('/')
-            this.$store.dispatch("a/fetchPostBy",[q[1],q[2]]);
+            let q = this.$route.path.split('/');
+            this.$store.dispatch("a/fetchPostBy",[q[1],q[2],this.$route.query.page]);
         },
     },
     created() {

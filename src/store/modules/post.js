@@ -49,8 +49,7 @@ export default {
     },
     actions: {
         async fetchPostBy({commit}, param){
-            //console.dir(param);
-            // console.log('typ:'+ param[0], 'query:'+param[1]);
+            console.log('fetchPostBy param',param);
             commit("SET_SHOW_LOADING", true, { root: true });
             let type;
             switch(param[0]){
@@ -61,14 +60,10 @@ export default {
                     type = "categories"
                 break;
             }
-            await axios.get(`wp/v2/posts?${type}=${param[1]}`)
+            await axios.get(`wp/v2/posts?${type}=${param[1]}&page=${(param[2]||1)}`)
             .then(response => {
-                // console.log('response.data',response.data);
-                // console.log('response.status',response.status);
-                // console.log('response.statusText',response.statusText);
-                // console.log('response.headers',response.headers);
-                // console.log('response.config',response.config);
                 commit('SET_POSTBY',response.data)
+                commit('SET_PAGGINATION', response.headers)
                 commit("SET_SHOW_LOADING", false, { root: true });
             });
         },
@@ -77,7 +72,6 @@ export default {
             commit("SET_SEARCHED_TRIGGER",true);
             axios.get(`/wp/v2/search?search=${query}`)
                 .then(response => {
-                    //console.log('Search Response',response);
                     commit('SET_SEARCH_POST', response.data);
                     commit('SET_PAGGINATION', response.headers)
                     commit("SET_SHOW_LOADING", false, { root: true });

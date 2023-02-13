@@ -66,7 +66,6 @@ const store = new Vuex.Store({
   actions: {
     fetchIP({commit}){
       axios.get('https://api.ipify.org/?format=json').then(response =>{
-        // console.log('SET_IP',response.data.ip);
         commit('SET_IP',response.data.ip);
       })
     },
@@ -81,14 +80,13 @@ const store = new Vuex.Store({
         console.log(error);
       })
     },
-    fetchAuthorAndPost(context, user_id) {
+    fetchAuthorAndPost(context, userArr) {
       context.commit("SET_SHOW_LOADING", true, { root: true }); 
-       axios.all([axios.get('/wp/v2/users/' + user_id), axios.get('/wp/v2/posts?author=' + user_id)])
+       axios.all([axios.get('/wp/v2/users/' + userArr[0]), axios.get('/wp/v2/posts?author=' + userArr[0]+'&page='+userArr[1])])
         .then(response => {
-          console.log('axios all', response);
           context.commit("SET_AUTHOR_POST", response)
           context.commit("SET_SHOW_LOADING", false, { root: true }); 
-          // return 'HomeLander';
+          context.commit('a/SET_PAGGINATION', response[1].headers)
         }).catch(error => {
           context.commit("SET_SHOW_LOADING", false, { root: true });
           console.log(error)
@@ -98,7 +96,6 @@ const store = new Vuex.Store({
     fetchAuthorBio(context, author_id){
       axios.get('/wp/v2/users/' + author_id)
       .then(response =>{
-        // console.log('fetchAuthorBio',response);
         context.commit("SET_AUTHOR",response.data)
       })
       .catch(error => {
@@ -109,7 +106,6 @@ const store = new Vuex.Store({
       context.commit("SET_SHOW_LOADING", true, { root: true });
       axios.get('/wp/v2/users?per_page=50')
         .then(response => {
-          // console.log('fetchAuthors action');
           context.commit("SET_AUTHORS", response.data)
           context.commit("SET_SHOW_LOADING", false, { root: true });
         }).catch(error => {
@@ -125,7 +121,6 @@ const store = new Vuex.Store({
     async fetchCategories({ commit }) {
       axios.get('wp/v2/categories')
         .then(response => {
-          // console.log('wp/v2/categories', response);
           commit('SET_CATEGORIES', response.data);
         });
     },
