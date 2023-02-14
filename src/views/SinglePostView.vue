@@ -2,11 +2,12 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <SinglePost :singlePost="singlePost" v-if="singlePost"/>
-                <AuthorBio :key="author.id" :author-img="author.avatar_urls" :author-name="author.name" :author-id="author.id" :author-slug="author.slug">
-                        {{author.description}}
+                <SinglePost :singlePost="singlePost" v-if="singlePost" />
+                <AuthorBio :key="author.id" :author-img="author.avatar_urls" :author-name="author.name"
+                    :author-id="author.id" :author-slug="author.slug">
+                    {{ author.description }}
                 </AuthorBio>
-                <Comments :comments="comments"/>
+                <Comments :comments="comments" />
                 <CommentFrm />
             </div>
             <div class="col-md-4">
@@ -36,13 +37,15 @@ export default {
     },
     created() {
         this.$store.dispatch("a/fetchSinglePost", this.$route.params.pathMatch.substring(1))
-        .then(()=>{
-            // console.log('this.singlePost.author',this.singlePost.author);
-            // console.log('this.singlePost.id',this.singlePost.id);
-            this.$store.dispatch("fetchAuthorBio",this.singlePost.author);
-            this.$store.dispatch("c/fetchPostSpecificComments",this.singlePost.id);
-        });
-        
+            .then(() => {
+                if (!this.$store.state.a.singlePost) {
+                    this.$router.push('/404');
+                } else {
+                    this.$store.dispatch("fetchAuthorBio", this.singlePost.author);
+                    this.$store.dispatch("c/fetchPostSpecificComments", this.singlePost.id);
+                }
+            });
+
 
     }
 }
