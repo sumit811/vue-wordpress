@@ -40,5 +40,8 @@ import AsideTags from './AsideTags.vue';
 export default {
     name: "SideBar",
     components: { AsideCategories, AsideTags },
+    created(){
+        this.$store.dispatch("c/recent_comments")
+    }
 }
 </script>

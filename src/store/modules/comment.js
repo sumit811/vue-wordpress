@@ -5,10 +5,14 @@ export default {
     namespaced: true,
     state: {
         comments: [],
-        post_comment_msg: ''
+        post_comment_msg: '',
+        recent_comments:[],
     },
     getters: {},
     mutations: {
+        SET_RECENT_COMMENTS(state,payload){
+            state.recent_comments = payload
+        },
         SET_POST_COMMENTS(state, payload) {
             state.comments.unshift(...payload)
         },
@@ -18,6 +22,15 @@ export default {
         // UPDATE_POST_COMMENTS(state,payload){}
     },
     actions: {
+        async recent_comments({commit}){
+            axios.get('wp/v2/comments?order=asc').
+            then(response => {
+                console.log('recent_comments',response);
+                commit('SET_RECENT_COMMENTS',response)
+            }).catch(error => {
+                console.error(error);
+            })
+        },
         async postComment(context, comment) {
             //getUserDetail,getToken
             // console.log(context)
