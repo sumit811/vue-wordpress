@@ -8,7 +8,7 @@
         </router-link>
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-          <li><router-link to="/" class="nav-link px-2 link-dark">{{menuTitle.blog}}</router-link></li>
+          <li><router-link to="/" class="nav-link px-2 link-dark" exact>{{menuTitle.blog}}</router-link></li>
           <li><router-link to="/aboutus" class="nav-link px-2 link-dark">{{menuTitle.about}}</router-link></li>
           <li><router-link to="/authors" class="nav-link px-2 link-dark">{{menuTitle.authors}}</router-link></li>
           <li v-if="isLoggedIn"><router-link to="/profile" class="nav-link px-2 link-dark">{{menuTitle.profile}}</router-link></li>
