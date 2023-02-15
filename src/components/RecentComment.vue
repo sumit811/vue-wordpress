@@ -1,15 +1,12 @@
 <template>
     <div class="p-4">
         <h4 class="fst-italic">Recent Comments</h4>
-        <ul class="list-group list-group">
-            <li class="list-group-item d-flex justify-content-between align-items-start"
-                v-for="comment in recent_comments" :key="comment.id">
+        <ul class="list-unstyled">
+            <li v-for="comment in recent_comments" :key="comment.id">
                 <div class="ms-2 me-auto">
-                    <router-link :to="'/category/' + comment.id">
-                        <div class="fw-bold">{{ comment.content.rendered | stripHTML }}</div>
-                    </router-link>
+                    <p><a :href="comment.author_url" target="_blank"><img :src="comment.author_avatar_urls[24]"></a> : <a :href="comment.author_url" target="_blank">{{ comment.author_name }}</a></p>
+                    <div>{{ comment.content.rendered | stripHTML }}</div>
                 </div>
-                <span class="badge bg-primary rounded-pill">{{ comment.author_name }}</span>
             </li>
         </ul>
     </div>
@@ -28,11 +25,15 @@ export default {
             const div = document.createElement('div')
             div.innerHTML = value
             const text = div.textContent || div.innerText || ''
-            return text.slice(0,70);
+            return text.slice(0, 70);
         }
     }
 }
 </script>
 <style scoped>
-
+li {
+    margin-top: 20px;
+    border-bottom: 1px solid grey;
+    padding-bottom: 20px;
+}
 </style>
