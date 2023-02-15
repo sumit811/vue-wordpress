@@ -25,8 +25,7 @@ export default {
         async recent_comments({commit}){
             axios.get('wp/v2/comments?order=asc').
             then(response => {
-                console.log('recent_comments',response);
-                commit('SET_RECENT_COMMENTS',response)
+                commit('SET_RECENT_COMMENTS',response.data)
             }).catch(error => {
                 console.error(error);
             })
@@ -50,7 +49,7 @@ export default {
                 date: context.rootGetters['curDate'],
                 parent: 0,
                 post: post['id'],
-                toekn: token,
+                token: token,
             }
             ///wp/v2/comments
             console.log('postComment:-', context, comment, commentData);
