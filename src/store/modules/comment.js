@@ -22,6 +22,16 @@ export default {
         // UPDATE_POST_COMMENTS(state,payload){}
     },
     actions: {
+        async deleteComment(context,id){
+            let token = context.rootGetters['b/login/getToken']
+            await axios.delete(`/wp/v2/comments/${id}?token=${token}`)
+            .then(response =>{
+                console.log('deleteComment',response);
+            })
+            .catch(error => {
+                console.log('deleteComment',error);
+            })
+        },
         async recent_comments({commit}){
             axios.get('wp/v2/comments?order=asc').
             then(response => {
