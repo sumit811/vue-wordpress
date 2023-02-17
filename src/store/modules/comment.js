@@ -8,7 +8,16 @@ export default {
         post_comment_msg: '',
         recent_comments:[],
     },
-    getters: {},
+    getters: {
+        recent_comments_id: state =>{
+            let arr = []
+            console.log(state.recent_comments);
+            state.recent_comments.forEach(e => {
+                arr.push(e.id);
+            });
+            return arr;
+        }
+    },
     mutations: {
         SET_RECENT_COMMENTS(state,payload){
             state.recent_comments = payload
