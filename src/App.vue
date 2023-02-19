@@ -2,7 +2,7 @@
   <div id="app">
     <NavBar/>
     
-  <router-view v-slot="{ Component,route }">
+  <router-view v-slot="{ Component,route }" :key="$route.fullPath">
     <transition name="fade" mode="out-in">
       <div :key="route.name">  
         <component :is="Component" />

@@ -31,7 +31,7 @@ export default {
     computed: {
         catList: function () {
             let catArr = [...this.singlePost.categories];
-            console.log('catArr',catArr);
+            // console.log('catArr',catArr);
             return this.$store.state.categories.filter(c => {
                 if (catArr.includes(c.id)) {
                    return true;
@@ -40,7 +40,7 @@ export default {
         },
         tagList: function () {
             let ttArr = [...this.singlePost.tags];
-            console.log('ttArr',ttArr);
+            // console.log('ttArr',ttArr);
             return this.$store.state.tags.filter(t => {
                 if (ttArr.includes(t.id)) {
                    return true;

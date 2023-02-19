@@ -11,9 +11,8 @@ export default {
     getters: {
         recent_comments_id: state =>{
             let arr = []
-            console.log(state.recent_comments);
             state.recent_comments.forEach(e => {
-                arr.push(e.id);
+                arr.push(e.post);
             });
             return arr;
         }
@@ -42,9 +41,10 @@ export default {
             })
         },
         async recent_comments({commit}){
-            axios.get('wp/v2/comments?order=asc').
+            await axios.get('wp/v2/comments?order=asc').
             then(response => {
                 commit('SET_RECENT_COMMENTS',response.data)
+                return response.data;
             }).catch(error => {
                 console.error(error);
             })
@@ -88,7 +88,6 @@ export default {
         fetchPostSpecificComments({ commit }, postId) {
             axios.get(`wp/v2/comments?post=${postId}`)
                 .then(response => {
-                    // console.info('fetchPostSpecificComments:-', response);
                     commit("SET_POST_COMMENTS", response.data)
                 });
         },

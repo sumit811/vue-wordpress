@@ -1,51 +1,71 @@
-<template>
-    <div class="p-4">
-        <h4 class="fst-italic">Recent Comments</h4>
-        {{recentCommentsPostIdDetails}}
-        <ul class="list-unstyled">
-            <li v-for="comment in recent_comments" :key="comment.id">
-                <div class="ms-2 me-auto">
-                    <p><a :href="comment.author_url" target="_blank"><img :src="comment.author_avatar_urls[24]"></a> : <a :href="comment.author_url" target="_blank">{{ comment.author_name }}</a> on <router-link to="http://www.google.com">{{ comment.post }}</router-link></p>
-                    <p>{{ comment.date | moment("MMMM DD, YYYY") }}</p>
-                    <div>{{ comment.content.rendered | stripHTML }}</div>
-                </div>
-            </li>
-        </ul>
-    </div>
-</template>
 <script>
 import moment from 'moment';
 import { mapGetters, mapState } from 'vuex';
 export default {
-    
+    render() {
+        return (
+            <div class="p-4">
+                <h4 class="fst-italic">Recent Comments</h4>
+                {this.recentCommentsPostIdDetails}
+                {this.data_loaded !== '' ? (
+                    <ul class="list-unstyled">
+                        {this.recent_comments.map((e) =>
+                            <li>
+                                <div class="ms-2 me-auto">
+                                    <p>
+                                        <img class="avatar" src={e.author_avatar_urls[24]} />
+                                        <a href={e.author_url} target="_blank">{e.author_name}</a> on {this.postdetail(e.post)}
+                                    </p>
+                                    <p>{this.dateFormatChange(e.date)}</p>
+                                    <div>{this.postContentTrim(e.content.rendered)}</div>
+                                </div>
+                            </li>)}
+                    </ul >)
+                    : 'loading'}
+            </div>
+        )
+    },
+    data() {
+        return {
+            data_loaded: false
+        }
+    },
     created() {
-        this.$store.dispatch("c/recent_comments")
+        this.$store.dispatch("c/recent_comments").then(() => {
+            this.$store.dispatch("a/fetchSinglePostByIDs", this.recent_comments_id).then(() => {
+                this.data_loaded = true;
+            });
+        })
     },
     computed: {
         ...mapState('c', ['recent_comments']),
+        ...mapState('a', ['recent_comment_posts']),
         ...mapGetters('c', ['recent_comments_id']),
-        recentCommentsPostIdDetails: function(){
-            console.log(this.recent_comments_id)
-
-                return 'dsdafadfsafdsafasd';
-
-        }
-
     },
-    filters: {
-        stripHTML: function (value) {
-            const div = document.createElement('div')
-            div.innerHTML = value
-            const text = div.textContent || div.innerText || ''
-            return text.slice(0, 70);
+    methods: {
+        postContentTrim(content){
+            let c = content.replace(/(<([^>]+)>)/gi, "")
+            if(c.length>70){
+                c = c.slice(0, 70)+'...'
+            }
+            return c;
         },
-        dateFormatChange:function(str){
-            return moment(str).format('MMMM Do YYYY, h:mm:ss a');
-        }
+        postdetail(id){
+            let post = this.recent_comment_posts.find(e => e.id==id);
+            if(post){
+                return <router-link to={'/'+post.slug}>{post.title.rendered}</router-link >;
+            }
+        },
+        dateFormatChange(str) {
+            return moment(str).format('MMMM DD YYYY');
+        },
     }
 }
 </script>
 <style scoped>
+.avatar{
+    padding-right: 10px;
+}
 li {
     margin-top: 20px;
     border-bottom: 1px solid grey;
