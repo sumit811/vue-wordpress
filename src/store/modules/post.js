@@ -9,12 +9,16 @@ export default {
         singlePost: [],
         postBy: [],
         searched:false,
+        recent_comment_posts:[],
         postPaggination: {
             totalpost: 0,
             totalpages: 0
         },
     },
     mutations: {
+        SET_RECENT_POST_IDs(state, payload){
+            state.recent_comment_posts = payload;
+        },
         SET_POSTBY(state, payload){
             state.postBy = payload
         },
@@ -104,15 +108,20 @@ export default {
             });
         },
         async fetchSinglePost({ commit }, slug) {
-            //console.log('fetchSinglePost id:-', slug);
             commit("SET_SHOW_LOADING", true, { root: true });
             await axios.get(`/wp/v2/posts/?slug=${slug}`).then(response => {
-                console.log('fetchSinglePost',response);
                 commit("SET_SHOW_LOADING", false, { root: true });
                 commit('SET_SINGLE_POST', response.data)
             }).catch(error => {
                 console.log('fetchSinglePost', error);
                 commit("SET_SHOW_LOADING", false, { root: true });
+            });
+        },
+        async fetchSinglePostByIDs({ commit }, ids) {
+            await axios.get(`/wp/v2/posts/?include=${ids}`).then(response => {
+                commit('SET_RECENT_POST_IDs', response.data)
+            }).catch(error => {
+                console.log('fetchSinglePostByIDs', error);
             });
         }
     },

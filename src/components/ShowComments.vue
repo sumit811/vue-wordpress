@@ -16,8 +16,7 @@
                                         <p class="mb-1">
                                             {{comment.author_name | commentName }} <span class="small">- 2 hours ago</span>
                                         </p>
-                                        <a href="#!"><i class="fas fa-reply fa-xs"></i><span class="small">
-                                                reply</span></a>
+                                        <!-- <a href="void(0)" v-if="comment.id===" @click.prevent="delComment(comment.id )"><span class="small"><i class="bi bi-trash"></i></span></a> -->
                                     </div>
                                     <p class="small mb-0" v-html="comment.content.rendered"></p>
                                 </div>
@@ -30,7 +29,17 @@
     </section>
 </template>
 <script>
+
 export default {
+    methods:{
+        delComment:function(id){
+            console.log('delComment',id);
+            this.$store.dispatch("c/deleteComment", id)
+            .then(response => {
+                console.log(response);
+            })
+        }
+    },
     props:{
         comments:{
             required: true,

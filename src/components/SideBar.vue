@@ -7,6 +7,7 @@
         </div>
         <AsideCategories />
         <AsideTags />
+        <RecentComments />
         <div class="p-4">
             <h4 class="fst-italic">Archives</h4>
             <ol class="list-unstyled mb-0">
@@ -37,8 +38,9 @@
 <script>
 import AsideCategories from './AsideCategories.vue';
 import AsideTags from './AsideTags.vue';
+import RecentComments from './RecentComment.vue';
 export default {
     name: "SideBar",
-    components: { AsideCategories, AsideTags },
+    components: { AsideCategories, AsideTags, RecentComments },
 }
 </script>

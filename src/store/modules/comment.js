@@ -5,10 +5,22 @@ export default {
     namespaced: true,
     state: {
         comments: [],
-        post_comment_msg: ''
+        post_comment_msg: '',
+        recent_comments:[],
     },
-    getters: {},
+    getters: {
+        recent_comments_id: state =>{
+            let arr = []
+            state.recent_comments.forEach(e => {
+                arr.push(e.post);
+            });
+            return arr;
+        }
+    },
     mutations: {
+        SET_RECENT_COMMENTS(state,payload){
+            state.recent_comments = payload
+        },
         SET_POST_COMMENTS(state, payload) {
             state.comments.unshift(...payload)
         },
@@ -18,6 +30,25 @@ export default {
         // UPDATE_POST_COMMENTS(state,payload){}
     },
     actions: {
+        async deleteComment(context,id){
+            let token = context.rootGetters['b/login/getToken']
+            await axios.delete(`/wp/v2/comments/${id}?token=${token}`)
+            .then(response =>{
+                console.log('deleteComment',response);
+            })
+            .catch(error => {
+                console.log('deleteComment',error);
+            })
+        },
+        async recent_comments({commit}){
+            await axios.get('wp/v2/comments?order=asc').
+            then(response => {
+                commit('SET_RECENT_COMMENTS',response.data)
+                return response.data;
+            }).catch(error => {
+                console.error(error);
+            })
+        },
         async postComment(context, comment) {
             //getUserDetail,getToken
             // console.log(context)
@@ -37,7 +68,7 @@ export default {
                 date: context.rootGetters['curDate'],
                 parent: 0,
                 post: post['id'],
-                toekn: token,
+                token: token,
             }
             ///wp/v2/comments
             console.log('postComment:-', context, comment, commentData);
@@ -57,7 +88,6 @@ export default {
         fetchPostSpecificComments({ commit }, postId) {
             axios.get(`wp/v2/comments?post=${postId}`)
                 .then(response => {
-                    // console.info('fetchPostSpecificComments:-', response);
                     commit("SET_POST_COMMENTS", response.data)
                 });
         },

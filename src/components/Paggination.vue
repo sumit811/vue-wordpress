@@ -7,9 +7,7 @@
             </li>
             <li class="page-item" v-for="n in pageNumArr" :key="n" :class="activeClass(n)" ref="noOfPagess">
                 <a class="page-link" :class="{ 'cursor-default': (n == '...') }" href="#"
-                    @click.prevent="postPage(n)">{{
-                        n
-                    }}</a>
+                    @click.prevent="postPage(n)">{{n}}</a>
             </li>
             <li class="page-item info" :class="{ disabled: (this.current >= this.noOfPages) }">
                 <a class="page-link" href="#" @click.prevent="postPage('n')">Next<span aria-hidden="true"
