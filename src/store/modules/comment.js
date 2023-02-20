@@ -27,7 +27,6 @@ export default {
         SET_POST_COMMENT_MSG(state, payload){
             state.post_comment_msg = payload
         }
-        // UPDATE_POST_COMMENTS(state,payload){}
     },
     actions: {
         async deleteComment(context,id){
@@ -41,7 +40,7 @@ export default {
             })
         },
         async recent_comments({commit}){
-            await axios.get('wp/v2/comments?order=asc').
+            await axios.get('wp/v2/comments?order=asc&per_page=5').
             then(response => {
                 commit('SET_RECENT_COMMENTS',response.data)
                 return response.data;
@@ -50,12 +49,9 @@ export default {
             })
         },
         async postComment(context, comment) {
-            //getUserDetail,getToken
-            // console.log(context)
             let user = context.rootGetters['b/login/getUserDetail'];
             let token = context.rootGetters['b/login/getToken']
             let post = context.rootState.a.singlePost;
-            // console.log('postComment-getUserDetail',user,post);
             let headerdata = {
                 Authorization : `Bearer ${token}`
                }

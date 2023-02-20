@@ -8,7 +8,7 @@
         <AsideCategories />
         <AsideTags />
         <RecentComments />
-        <div class="p-4">
+        <!-- <div class="p-4">
             <h4 class="fst-italic">Archives</h4>
             <ol class="list-unstyled mb-0">
                 <li><a href="#">March 2021</a></li>
@@ -24,7 +24,7 @@
                 <li><a href="#">May 2020</a></li>
                 <li><a href="#">April 2020</a></li>
             </ol>
-        </div>
+        </div> -->
 
         <div class="p-4">
             <h4 class="fst-italic">Elsewhere</h4>
