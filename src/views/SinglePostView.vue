@@ -26,8 +26,9 @@ export default {
         ...mapState(['author']),
         ...mapState('c', ['comments'])
     },
-    created() {
-        this.$store.dispatch("a/fetchSinglePost", this.$route.params.pathMatch.substring(1))
+    methods:{
+        fetchPost:function(){
+            this.$store.dispatch("a/fetchSinglePost", this.$route.params.pathMatch.substring(1))
             .then(() => {
                 if (!this.$store.state.a.singlePost) {
                     this.$router.push('/404');
@@ -36,13 +37,15 @@ export default {
                     this.$store.dispatch("c/fetchPostSpecificComments", this.singlePost.id);
                 }
             });
-
-
+        }
+    },
+    created() {
+       this.fetchPost();
     },
     watch: {
         $route(to, from) {
             if (to !== from) {
-                this.$forceUpdate();
+                this.fetchPost();
             }
         },
     }

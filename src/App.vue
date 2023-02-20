@@ -4,7 +4,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-8">
-          <router-view :key="$route.fullPath"><!--:key="$route.fullPath"-->
+          <router-view ><!--:key="$route.fullPath"-->
           </router-view>
           <!--<router-view v-slot="{ Component, route }" :key="$route.fullPath">
             <div :key="route.name">
