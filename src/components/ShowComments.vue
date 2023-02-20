@@ -12,7 +12,7 @@
                                 <div>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <p class="mb-1">
-                                            {{ comment.author_name | commentName }} <span class="small">- 2 hours ago</span>
+                                            {{ comment.author_name | commentName }} <span class="small">- {{comment.date | moment("from", "now")}}</span>
                                         </p>
                                         <!-- <a href="void(0)" v-if="comment.id===" @click.prevent="delComment(comment.id )"><span class="small"><i class="bi bi-trash"></i></span></a> -->
                                     </div>
