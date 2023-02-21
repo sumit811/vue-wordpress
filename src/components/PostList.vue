@@ -40,7 +40,6 @@ export default {
       if(to.query != from.query){
         this.$store.dispatch("a/fetchPosts", to.query.page);
       }
-
     }
   }
 };

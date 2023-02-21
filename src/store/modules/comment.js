@@ -21,8 +21,11 @@ export default {
         SET_RECENT_COMMENTS(state,payload){
             state.recent_comments = payload
         },
-        SET_POST_COMMENTS(state, payload) {
+        ADD_NEW_COMMENT(state,payload){
             state.comments.unshift(...payload)
+        },
+        SET_POST_COMMENTS(state, payload) {
+            state.comments = payload
         },
         SET_POST_COMMENT_MSG(state, payload){
             state.post_comment_msg = payload
@@ -67,12 +70,12 @@ export default {
                 token: token,
             }
             ///wp/v2/comments
-            console.log('postComment:-', context, comment, commentData);
             await axios.post(`wp/v2/comments`, commentData, {
                 headers: headerdata
             }).then(response => {
                 console.log('commentpost', response);
-                context.commit("SET_POST_COMMENTS",[response.data])
+                // context.commit("SET_POST_COMMENTS",[response.data])
+                context.commit("ADD_NEW_COMMENT",[response.data])
                 context.commit('SET_POST_COMMENT_MSG','Your comment is successfully added.')
 
             }).catch(error => {
