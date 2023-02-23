@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from '@/services/api'
 
 export default{
     name:'moduleNavBar',
@@ -13,7 +13,7 @@ export default{
     getters:{},
     actions:{
         fetchMenu({commit}){
-            axios.get("wp-json/wp/v2/menu")
+            axiosInstance.get("wp-json/wp/v2/menu")
             .then(response =>{
                 console.log(response);
                 commit("SET_MENU",response.body)

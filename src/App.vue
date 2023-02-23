@@ -1,23 +1,24 @@
 <template>
   <div id="app">
-    <NavBar/>
-    
-  <router-view v-slot="{ Component,route }" :key="$route.fullPath">
-    <transition name="fade" mode="out-in">
-      <div :key="route.name">  
-        <component :is="Component" />
+    <NavBar />
+    <div class="container">
+      <div class="row">
+        <div :class="{ 'col-md-8':shouldShowSidebar,'col-md-12':!shouldShowSidebar }">
+          <router-view ></router-view>
+        </div>
+        <div class="col-md-4" v-if="shouldShowSidebar">
+          <SideBar v-if="shouldShowSidebar"/>
+        </div>
       </div>
-    </transition>
-  </router-view>
-
-
-    <FooterVue/>
+    </div>
+    <FooterVue />
     <TheLoader />
   </div>
 </template>
 
 <script>
 import NavBar from "@/components/NavBar.vue";
+import SideBar from "@/components/SideBar.vue";
 import FooterVue from "./components/Footer.vue";
 import TheLoader from "./components/TheLoader.vue";
 import mixinOne from "./mixin/mixinOne.js"
@@ -25,35 +26,21 @@ import mixinOne from "./mixin/mixinOne.js"
 export default {
   components: {
     NavBar,
+    SideBar,
     FooterVue,
     TheLoader
   },
-  mixins:[mixinOne],
-  created(){
+  mixins: [mixinOne],
+  created() {
     this.$store.dispatch("fetchIP");
-    // this.$store.dispatch("fetchMenu")
-    // this.$store.dispatch("b/login/autoLogin");
-    // this.$store.dispatch("fetchMenus")
   },
+  computed:{
+    shouldShowSidebar(){
+        return this.$route.meta.sidebar!=false;
+    }
+  }
 };
 </script>
 
 <style lang="scss">
-// #app {
-//   font-family: Avenir, Helvetica, Arial, sans-serif;
-//   -webkit-font-smoothing: antialiased;
-//   -moz-osx-font-smoothing: grayscale;
-//   text-align: center;
-//   color: #2c3e50;
-// }
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
 </style>

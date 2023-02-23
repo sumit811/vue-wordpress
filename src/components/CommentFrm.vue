@@ -10,7 +10,6 @@
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="comment"></textarea>
         </div>
         <button type="submit" class="btn btn-primary" @click="commentAdd">Post Comment</button>
-        {{ comment }}
     </div>
     <h3 class="mt-5 text-center" v-else>Please login to enter your comment.<br />
     </h3>

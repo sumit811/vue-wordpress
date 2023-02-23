@@ -1,4 +1,4 @@
-import axios from "axios"
+import axiosInstance from '@/services/api'
 export default{
     name:'moduleLogin',
     namespaced: true,
@@ -58,7 +58,7 @@ export default{
             // } catch (error) {
             //     throw error;
             // }
-            await axios.post('/jwt-auth/v1/token',{
+            await axiosInstance.post('/jwt-auth/v1/token',{
                 'username':payload.username,
                 'password':payload.password
             }).then(response =>{

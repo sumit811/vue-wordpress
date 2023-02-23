@@ -21,6 +21,7 @@ const routes = [
   {
     path: "/contactus",
     name: "contactus",
+    meta:{sidebar:false},
     component: () => import(/* webpackChunkName: "contactus" */ "../views/ContactView.vue"),
   },
   {
@@ -52,7 +53,7 @@ const routes = [
     path: "/login",
     name: "login",
     component: LoginView,
-    meta: {auth: false },
+    meta: {auth: false,sidebar:false },
   },
   {
     path: "/profile",

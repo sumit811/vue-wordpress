@@ -1,30 +1,30 @@
 <template>
-    <div class="container mt-5 mb-5">
-        <div class="row justify-content-md-center">
-            <div class="col-md-6">
-                <div class="alert alert-danger" role="alert" v-if="error" v-html="errormsg"></div>
-                <form @submit.prevent="login" class="row g-3 needs-validation" ref="loginfrm">
-                    <div class="mb-3 ">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" v-model.trim="username"
-                            :class="{ 'is-invalid': !this.$v.username.required && error }">
-                        <p class="invalid-feedback"
-                            :class="{ 'd-none': !error, 'd-block': !this.$v.username.required && error }">**Please enter your username.</p>
+    <div class="row justify-content-md-center container mt-5 mb-5">
+        <div class="col-md-6">
+            <h1 class="mb-3">Login</h1>
+            <div class="alert alert-danger" role="alert" v-if="error" v-html="errormsg"></div>
+            <form @submit.prevent="login" class="row g-3 needs-validation" ref="loginfrm">
+                <div class="mb-3 ">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" v-model.trim="username"
+                        :class="{ 'is-invalid': !this.$v.username.required && error }">
+                    <p class="invalid-feedback"
+                        :class="{ 'd-none': !error, 'd-block': !this.$v.username.required && error }">**Please enter your
+                        username.</p>
 
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" v-model.trim="password"
-                            :class="{ 'is-invalid': !this.$v.password.required && error }">
-                        <p class="invalid-feedback"
-                            :class="{ 'd-none': !error, 'd-block': !this.$v.password.required && error }">**Please enter
-                            your password.</p>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" v-model.trim="password"
+                        :class="{ 'is-invalid': !this.$v.password.required && error }">
+                    <p class="invalid-feedback"
+                        :class="{ 'd-none': !error, 'd-block': !this.$v.password.required && error }">**Please enter
+                        your password.</p>
 
-                    </div>
+                </div>
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
         </div>
     </div>
 </template>
@@ -78,17 +78,17 @@ export default {
                 this.SET_SHOW_LOADING(true);
                 this.error = false;
                 this['b/login/fetchLogin']({ 'username': this.username, 'password': this.password })
-                .then(() => {
-                    this.SET_SHOW_LOADING(false);
-                    this.$router.replace('/profile');
-                })
-                .catch(err => {
-                    // console.info(err)
-                    this.SET_SHOW_LOADING(false);
+                    .then(() => {
+                        this.SET_SHOW_LOADING(false);
+                        this.$router.replace('/profile');
+                    })
+                    .catch(err => {
+                        // console.info(err)
+                        this.SET_SHOW_LOADING(false);
 
-                    this.error = true;
-                    this.errormsg = err.response.data.message;
-                });
+                        this.error = true;
+                        this.errormsg = err.response.data.message;
+                    });
                 //    this.$store.dispatch("b/login/fetchLogin",{'username':this.username,'password':this.password});
                 // console.log('ek jeep khari m');
             }

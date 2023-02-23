@@ -1,16 +1,16 @@
 <template>
-  <div class="container">
-    <h1>{{page.title.rendered}}</h1>
+  <fragment>
+    <h1>{{ page.title.rendered }}</h1>
     <div v-html="page.content.rendered"></div>
-  </div>
+  </fragment>
 </template>
 <script>
-export default{
-  created(){
-    this.$store.dispatch("fetchPage",590);
+export default {
+  created() {
+    this.$store.dispatch("fetchPage", 590);
   },
-  computed:{
-    page:function(){
+  computed: {
+    page: function () {
       return this.$store.state.page;
     }
   },

@@ -124,7 +124,6 @@ export default {
 .cursor-default {
     cursor: default;
 }
-
 nav {
     overflow: hidden;
 }
