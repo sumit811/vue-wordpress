@@ -3,21 +3,14 @@
     <NavBar />
     <div class="container">
       <div class="row">
-        <div class="col-md-8">
-          <router-view ><!--:key="$route.fullPath"-->
-          </router-view>
-          <!--<router-view v-slot="{ Component, route }" :key="$route.fullPath">
-            <div :key="route.name">
-              <component :is="Component" />
-            </div>
-          </router-view>-->
+        <div :class="{ 'col-md-8':shouldShowSidebar,'col-md-12':!shouldShowSidebar }">
+          <router-view ></router-view>
         </div>
-        <div class="col-md-4">
-          <SideBar />
+        <div class="col-md-4" v-if="shouldShowSidebar">
+          <SideBar v-if="shouldShowSidebar"/>
         </div>
       </div>
     </div>
-
     <FooterVue />
     <TheLoader />
   </div>
@@ -40,28 +33,14 @@ export default {
   mixins: [mixinOne],
   created() {
     this.$store.dispatch("fetchIP");
-    // this.$store.dispatch("fetchMenu")
-    // this.$store.dispatch("b/login/autoLogin");
-    // this.$store.dispatch("fetchMenus")
   },
+  computed:{
+    shouldShowSidebar(){
+        return this.$route.meta.sidebar!=false;
+    }
+  }
 };
 </script>
 
 <style lang="scss">
-// #app {
-//   font-family: Avenir, Helvetica, Arial, sans-serif;
-//   -webkit-font-smoothing: antialiased;
-//   -moz-osx-font-smoothing: grayscale;
-//   text-align: center;
-//   color: #2c3e50;
-// }
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
 </style>
