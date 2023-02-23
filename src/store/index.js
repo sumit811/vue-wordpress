@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import axios from "axios";
+import axiosInstance from '@/services/api'
 import modulePost from "./modules/post"
 import moduleAuthentication from "./modules/authentication"
 import moduleComment from "./modules/comment"
@@ -8,7 +8,7 @@ import moduleNavBar from "./modules/navbar"
 import moduleContactus from "./modules/contactus"
 
 // axios.defaults.baseURL = 'http://localhost/wordpress/index.php/wp-json';
-axios.defaults.baseURL = 'http://localhost:8080/wordpress/index.php/wp-json';
+// axios.defaults.baseURL = 'http://localhost:8080/wordpress/index.php/wp-json';
 
 
 Vue.use(Vuex);
@@ -65,13 +65,13 @@ const store = new Vuex.Store({
   },
   actions: {
     fetchIP({commit}){
-      axios.get('https://api.ipify.org/?format=json').then(response =>{
+      axiosInstance.get('https://api.ipify.org/?format=json').then(response =>{
         commit('SET_IP',response.data.ip);
       })
     },
     fetchPage(context,pageId){
       context.commit("SET_SHOW_LOADING", true, { root: true });
-      axios.get(`/wp/v2/pages/${pageId}`)
+      axiosInstance.get(`/wp/v2/pages/${pageId}`)
       .then(response => {
         context.commit('SET_PAGE',response.data)
         context.commit("SET_SHOW_LOADING", false, { root: true });
@@ -82,7 +82,7 @@ const store = new Vuex.Store({
     },
     fetchAuthorAndPost(context, userArr) {
       context.commit("SET_SHOW_LOADING", true, { root: true }); 
-       axios.all([axios.get('/wp/v2/users/' + userArr[0]), axios.get('/wp/v2/posts?author=' + userArr[0]+'&page='+userArr[1])])
+      axiosInstance.all([axiosInstance.get('/wp/v2/users/' + userArr[0]), axiosInstance.get('/wp/v2/posts?author=' + userArr[0]+'&page='+userArr[1])])
         .then(response => {
           context.commit("SET_AUTHOR_POST", response)
           context.commit("SET_SHOW_LOADING", false, { root: true }); 
@@ -94,7 +94,7 @@ const store = new Vuex.Store({
 
     },
     fetchAuthorBio(context, author_id){
-      axios.get('/wp/v2/users/' + author_id)
+      axiosInstance.get('/wp/v2/users/' + author_id)
       .then(response =>{
         context.commit("SET_AUTHOR",response.data)
       })
@@ -104,7 +104,7 @@ const store = new Vuex.Store({
     },
     fetchAuthors(context) {
       context.commit("SET_SHOW_LOADING", true, { root: true });
-      axios.get('/wp/v2/users?per_page=50')
+      axiosInstance.get('/wp/v2/users?per_page=50')
         .then(response => {
           context.commit("SET_AUTHORS", response.data)
           context.commit("SET_SHOW_LOADING", false, { root: true });
@@ -114,18 +114,18 @@ const store = new Vuex.Store({
         })
     },
     fetchTags({ commit }) {
-      axios.get('/wp/v2/tags').then(response => {
+      axiosInstance.get('/wp/v2/tags').then(response => {
         commit('SET_TAGS', response.data)
       });
     },
     async fetchCategories({ commit }) {
-      axios.get('wp/v2/categories')
+      axiosInstance.get('wp/v2/categories')
         .then(response => {
           commit('SET_CATEGORIES', response.data);
         });
     },
     async fetchMenus() {
-      axios.get('/wp/v2/menu-items')
+      axiosInstance.get('/wp/v2/menu-items')
         .then(response => {
           console.log(response);
         })

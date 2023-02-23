@@ -1,4 +1,4 @@
-import axios from "axios"
+import axiosInstance from '@/services/api'
 
 export default {
     name: "modulePost",
@@ -64,7 +64,7 @@ export default {
                     type = "categories"
                 break;
             }
-            await axios.get(`wp/v2/posts?${type}=${param[1]}&page=${(param[2]||1)}`)
+            await axiosInstance.get(`wp/v2/posts?${type}=${param[1]}&page=${(param[2]||1)}`)
             .then(response => {
                 commit('SET_POSTBY',response.data)
                 commit('SET_PAGGINATION', response.headers)
@@ -74,7 +74,7 @@ export default {
         async search({commit},query) {
             commit("SET_SHOW_LOADING", true, { root: true });
             commit("SET_SEARCHED_TRIGGER",true);
-            axios.get(`/wp/v2/search?search=${query}`)
+            axiosInstance.get(`/wp/v2/search?search=${query}`)
                 .then(response => {
                     commit('SET_SEARCH_POST', response.data);
                     commit('SET_PAGGINATION', response.headers)
@@ -93,7 +93,7 @@ export default {
             if (page) {
                 url = `/wp/v2/posts?per_page=10&page=${page}`;
             }
-            axios.get(url).then(response => {
+            axiosInstance.get(url).then(response => {
                 context.commit('SET_POSTS', response.data);
                 context.commit('SET_PAGGINATION', response.headers)
                 // console.log('header: ' , response);
@@ -109,7 +109,7 @@ export default {
         },
         async fetchSinglePost({ commit }, slug) {
             commit("SET_SHOW_LOADING", true, { root: true });
-            await axios.get(`/wp/v2/posts/?slug=${slug}`).then(response => {
+            await axiosInstance.get(`/wp/v2/posts/?slug=${slug}`).then(response => {
                 commit("SET_SHOW_LOADING", false, { root: true });
                 commit('SET_SINGLE_POST', response.data)
             }).catch(error => {
@@ -118,7 +118,7 @@ export default {
             });
         },
         async fetchSinglePostByIDs({ commit }, ids) {
-            await axios.get(`/wp/v2/posts/?include=${ids}`).then(response => {
+            await axiosInstance.get(`/wp/v2/posts/?include=${ids}`).then(response => {
                 commit('SET_RECENT_POST_IDs', response.data)
             }).catch(error => {
                 console.log('fetchSinglePostByIDs', error);
