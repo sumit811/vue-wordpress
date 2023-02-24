@@ -6,6 +6,7 @@
             repellat! Facere delectus ducimus expedita? Voluptas quis nemo ex necessitatibus magni. Fuga ipsam ratione
             veritatis!
         </p>
+        <router-view ></router-view>
     </fragment>
 </template>
 <script>
