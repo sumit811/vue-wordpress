@@ -7,10 +7,6 @@ import moduleComment from "./modules/comment"
 import moduleNavBar from "./modules/navbar"
 import moduleContactus from "./modules/contactus"
 
-// axios.defaults.baseURL = 'http://localhost/wordpress/index.php/wp-json';
-// axios.defaults.baseURL = 'http://localhost:8080/wordpress/index.php/wp-json';
-
-
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
@@ -44,8 +40,8 @@ const store = new Vuex.Store({
       state.ip = payload
     },
     SET_AUTHOR_POST(state, payload) {
-      state.author = payload[0].data
-      state.authorPost = payload[1].data
+      state.author = payload[0].value.data
+      state.authorPost = payload[1].value.data
     },
     SET_AUTHOR(state, payload) {
       state.author = payload
@@ -81,16 +77,26 @@ const store = new Vuex.Store({
       })
     },
     fetchAuthorAndPost(context, userArr) {
-      context.commit("SET_SHOW_LOADING", true, { root: true }); 
-      axiosInstance.all([axiosInstance.get('/wp/v2/users/' + userArr[0]), axiosInstance.get('/wp/v2/posts?author=' + userArr[0]+'&page='+userArr[1])])
-        .then(response => {
-          context.commit("SET_AUTHOR_POST", response)
-          context.commit("SET_SHOW_LOADING", false, { root: true }); 
-          context.commit('a/SET_PAGGINATION', response[1].headers)
-        }).catch(error => {
-          context.commit("SET_SHOW_LOADING", false, { root: true });
-          console.log(error)
-        });
+      context.commit("SET_SHOW_LOADING", true, { root: true });
+      let req1 = axiosInstance.get('/wp/v2/users/' + userArr[0]);
+      let req2 = axiosInstance.get('/wp/v2/posts?author=' + userArr[0]+'&page='+userArr[1])
+      Promise.allSettled([req1,req2]).then((res) => {
+        context.commit("SET_AUTHOR_POST", res)
+        context.commit('a/SET_PAGGINATION', res[1].value.headers)
+      }).catch(error =>{
+        console.error(error);
+      }).finally(()=> {
+        context.commit("SET_SHOW_LOADING", false, { root: true }); 
+      });
+      // axiosInstance.all([req1,req2])
+      //   .then(response => {
+      //     context.commit("SET_AUTHOR_POST", response)
+      //     context.commit("SET_SHOW_LOADING", false, { root: true }); 
+      //     context.commit('a/SET_PAGGINATION', response[1].headers)
+      //   }).catch(error => {
+      //     context.commit("SET_SHOW_LOADING", false, { root: true });
+      //     console.log(error)
+      //   });
 
     },
     fetchAuthorBio(context, author_id){

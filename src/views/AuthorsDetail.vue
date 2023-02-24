@@ -17,7 +17,7 @@ export default {
     components: { Author, PostExcerpt, Paggination },
     methods: {
         fetchAuthorPost: function (page = 1) {
-            let u = this.$route.params.user.split('-');
+            let u = this.$route.params.user.split('_');
             this.$store.dispatch("fetchAuthorAndPost", [u[1], page]);
         },
     },
