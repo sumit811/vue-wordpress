@@ -1,7 +1,7 @@
 <template>
   <fragment>
-    <h1>{{ page.title.rendered }}</h1>
-    <div v-html="page.content.rendered"></div>
+    <h1 v-if="page.title">{{ page.title.rendered }}</h1>
+    <div v-if="page.content" v-html="page.content.rendered"></div>
   </fragment>
 </template>
 <script>
