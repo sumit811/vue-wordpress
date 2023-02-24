@@ -58,9 +58,15 @@ const routes = [
   {
     path: "/profile",
     name: "profile",
-    component: () =>
-      import(/* webpackChunkName: "profileview" */ "../views/ProfileView.vue"),
-    meta: { auth: true }
+    component: () => import(/* webpackChunkName: "profileview" */ "../views/ProfileView.vue"),
+    meta: { auth: true },
+    children:[
+      {
+        path: "/profile/reset-password",
+        meta: { auth: true },
+        component: () => import(/* webpackchunkName:reset-password */"../views/ResetPassword.vue")
+      }
+    ]
   },
   {
     path: "*",
