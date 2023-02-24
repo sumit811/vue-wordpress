@@ -65,7 +65,7 @@ const store = new Vuex.Store({
   },
   actions: {
     fetchIP({commit}){
-      axiosInstance.get('https://api.ipify.org/?format=json').then(response =>{
+      axiosInstance.get('https://cors-anywhere.herokuapp.com/https://api.ipify.org/?format=json').then(response =>{
         commit('SET_IP',response.data.ip);
       })
     },
