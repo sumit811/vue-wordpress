@@ -18,7 +18,6 @@ export default {
     methods: {
         fetchAuthorPost: function (page = 1) {
             let u = this.$route.params.user.split('-');
-            console.log(u.length)
             this.$store.dispatch("fetchAuthorAndPost", [u[u.length - 1], page]);
         },
     },

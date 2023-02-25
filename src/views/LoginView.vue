@@ -2,7 +2,9 @@
     <div class="row justify-content-md-center container mt-5 mb-5">
         <div class="col-md-6">
             <h1 class="mb-3">Login</h1>
-            <div class="alert alert-danger" role="alert" v-if="error" v-html="errormsg"></div>
+            <transition enter-active-class="animate__animated animate__backInDown" leave-active-class="animate__animated animate__fadeOut">
+                <div class="alert alert-danger" role="alert" v-if="error" v-html="errormsg"></div>
+            </transition>
             <form @submit.prevent="login" class="row g-3 needs-validation" ref="loginfrm">
                 <div class="mb-3 ">
                     <label for="username" class="form-label">Username</label>
