@@ -2,7 +2,7 @@
     <section class="gradient-custom">
         <div class="card">
             <div class="card-body p-4">
-                <h4 class="text-center mb-4 pb-2">Comments section</h4>
+                <h4 class="text-center mb-4 pb-2">{{totalComments}} Comments</h4>
                 <div class="row">
                     <div class="col">
                         <div class="d-flex flex-start mb-4" v-for="comment in comments" :key="comment.id">
@@ -42,6 +42,10 @@ export default {
         comments: {
             required: true,
             type: Array
+        },
+        totalComments:{
+            required:true,
+            type:Number
         }
     },
     filters: {

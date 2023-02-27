@@ -5,7 +5,7 @@
             :author-slug="author.slug">
             {{ author.description }}
         </AuthorBio>
-        <Comments :comments="comments" />
+        <Comments :comments="comments" :totalComments="total_comments" />
         <CommentFrm />
     </fragment>
 </template>    
@@ -24,7 +24,7 @@ export default {
     computed: {
         ...mapState('a', ['singlePost']),
         ...mapState(['author']),
-        ...mapState('c', ['comments'])
+        ...mapState('c', ['comments','total_comments'])
     },
     methods:{
         fetchPost:function(){
