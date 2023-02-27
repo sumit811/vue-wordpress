@@ -1,5 +1,9 @@
 <template>
-    <article>
+    <article class="overflow-auto">
+        <img v-if="post?._embedded?.['wp:featuredmedia']?.[0].media_details?.sizes?.thumbnail?.source_url"
+            :src="post?._embedded?.['wp:featuredmedia']?.[0].media_details?.sizes?.thumbnail?.source_url"
+            class="rounded float-start imgshadow me-3 mb-3" alt="...">
+
         <h3><router-link :to="{ path: '/' + post.slug }">{{ post.title.rendered }}</router-link></h3>
         <div v-html="removeMoreLink(post.excerpt.rendered, post.slug)"></div>
         <footer>
@@ -53,8 +57,8 @@ article {
     box-shadow: 0px 1px 7px 2px #9eeaf9;
     color: #087990;
 }
-article h3 a{
+
+article h3 a {
     text-decoration: none;
     color: #0dcaf0;
-}
-</style>
+}</style>

@@ -89,9 +89,9 @@ export default {
             context.commit("SET_SHOW_LOADING", true, { root: true });
             context.commit("SET_SEARCHED_TRIGGER",false);
             // let url = '/wp/v2/posts?per_page=10';
-            let url = '/wp/v2/posts';
+            let url = '/wp/v2/posts?_embed';
             if (page) {
-                url = `/wp/v2/posts?per_page=10&page=${page}`;
+                url = `/wp/v2/posts?_embed&per_page=10&page=${page}`;
             }
             axiosInstance.get(url).then(response => {
                 context.commit('SET_POSTS', response.data);
