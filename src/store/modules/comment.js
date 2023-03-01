@@ -1,5 +1,3 @@
-// import axios from "axios"
-// import axiosInstance from '../../services/api'
 import axiosInstance from '@/services/api'
 
 export default {
@@ -9,6 +7,7 @@ export default {
         comments: [],
         post_comment_msg: '',
         recent_comments:[],
+        total_comments:0
     },
     getters: {
         recent_comments_id: state =>{
@@ -20,6 +19,9 @@ export default {
         }
     },
     mutations: {
+        SET_TOTAL_COMMENTS(state,payload){
+            state.total_comments = payload;
+        },
         SET_RECENT_COMMENTS(state,payload){
             state.recent_comments = payload
         },
@@ -87,6 +89,7 @@ export default {
             axiosInstance.get(`wp/v2/comments?post=${postId}`)
                 .then(response => {
                     commit("SET_POST_COMMENTS", response.data)
+                    commit("SET_TOTAL_COMMENTS",response.headers['x-wp-total'])
                 });
         },
     }

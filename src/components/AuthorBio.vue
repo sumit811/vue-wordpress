@@ -13,7 +13,7 @@
             </div> 
             <footer>
                 <router-link :to="{ name: 'authorsDetails', params: { user: authorUrl }}" class="float-end">
-                    View all of {{authorName}}'s posts.authorUrl
+                    View all of {{authorName}}'s posts
                 </router-link>
             </footer>
         </div>
@@ -53,7 +53,7 @@ export default {
     },
     computed:{
         authorUrl: function(){
-            return this.authorSlug+'_'+ this.authorId
+            return this.authorSlug+'-'+ this.authorId
         }
     }
 }
